@@ -11,11 +11,11 @@
 			"type": "string",
 			"defaultValue": "/subscriptions/5c01aa12-dd53-4da6-ac9b-2cedc706e93e/resourceGroups/rg-dwh-aviation-dev/providers/Microsoft.Storage/storageAccounts/stdwhaviationdev"
 		},
-		"Trigger_OF_Upload_properties_typeProperties_scope": {
+		"Trigger_BTS_Upload_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/5c01aa12-dd53-4da6-ac9b-2cedc706e93e/resourceGroups/rg-dwh-aviation-dev/providers/Microsoft.Storage/storageAccounts/stdwhaviationdev"
 		},
-		"Trigger_BTS_Upload_properties_typeProperties_scope": {
+		"Trigger_OF_Upload_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/5c01aa12-dd53-4da6-ac9b-2cedc706e93e/resourceGroups/rg-dwh-aviation-dev/providers/Microsoft.Storage/storageAccounts/stdwhaviationdev"
 		}
@@ -54,34 +54,6 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Trigger_OF_Upload')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "Bronze_to_Silver_OF",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "BlobEventsTrigger",
-				"typeProperties": {
-					"blobPathBeginsWith": "/bronze/blobs/openflights/",
-					"ignoreEmptyBlobs": true,
-					"scope": "[parameters('Trigger_OF_Upload_properties_typeProperties_scope')]",
-					"events": [
-						"Microsoft.Storage.BlobCreated"
-					]
-				}
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/Trigger_BTS_Upload')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
@@ -103,6 +75,34 @@
 					"blobPathEndsWith": ".zip",
 					"ignoreEmptyBlobs": true,
 					"scope": "[parameters('Trigger_BTS_Upload_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Trigger_OF_Upload')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "Bronze_to_Silver_OF",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/bronze/blobs/openflights/",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('Trigger_OF_Upload_properties_typeProperties_scope')]",
 					"events": [
 						"Microsoft.Storage.BlobCreated"
 					]

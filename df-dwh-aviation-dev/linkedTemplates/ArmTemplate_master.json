@@ -88,11 +88,11 @@
 					"Trigger_FAA_Upload_properties_typeProperties_scope": {
 						"value": "[parameters('Trigger_FAA_Upload_properties_typeProperties_scope')]"
 					},
-					"Trigger_OF_Upload_properties_typeProperties_scope": {
-						"value": "[parameters('Trigger_OF_Upload_properties_typeProperties_scope')]"
-					},
 					"Trigger_BTS_Upload_properties_typeProperties_scope": {
 						"value": "[parameters('Trigger_BTS_Upload_properties_typeProperties_scope')]"
+					},
+					"Trigger_OF_Upload_properties_typeProperties_scope": {
+						"value": "[parameters('Trigger_OF_Upload_properties_typeProperties_scope')]"
 					}
 				}
 			},
