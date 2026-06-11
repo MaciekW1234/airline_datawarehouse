@@ -843,6 +843,64 @@
 				},
 				"annotations": [],
 				"type": "AzureSqlTable",
+				"structure": [
+					{
+						"name": "OF_ID",
+						"type": "Int32"
+					},
+					{
+						"name": "Airport_Name",
+						"type": "String"
+					},
+					{
+						"name": "City_Name",
+						"type": "String"
+					},
+					{
+						"name": "Country",
+						"type": "String"
+					},
+					{
+						"name": "IATA_Code",
+						"type": "String"
+					},
+					{
+						"name": "ICAO_Code",
+						"type": "String"
+					},
+					{
+						"name": "Latitude",
+						"type": "String"
+					},
+					{
+						"name": "Longitude",
+						"type": "String"
+					},
+					{
+						"name": "Altitude_FT",
+						"type": "String"
+					},
+					{
+						"name": "TZ_Offset",
+						"type": "String"
+					},
+					{
+						"name": "DST_Ind",
+						"type": "String"
+					},
+					{
+						"name": "TZ_Name",
+						"type": "String"
+					},
+					{
+						"name": "Airport_Type",
+						"type": "String"
+					},
+					{
+						"name": "OF_Source",
+						"type": "String"
+					}
+				],
 				"typeProperties": {
 					"tableName": {
 						"value": "@dataset().tableName",
@@ -1249,7 +1307,93 @@
 								"sqlWriterUseTableLock": false
 							},
 							"enableStaging": false,
-							"enableSkipIncompatibleRow": true
+							"enableSkipIncompatibleRow": true,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Country",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Country"
+										}
+									},
+									{
+										"source": {
+											"name": "Latitude",
+											"type": "Double"
+										},
+										"sink": {
+											"name": "Latitude"
+										}
+									},
+									{
+										"source": {
+											"name": "Longitude",
+											"type": "Double"
+										},
+										"sink": {
+											"name": "Longitude"
+										}
+									},
+									{
+										"source": {
+											"name": "Name",
+											"type": "String"
+										},
+										"sink": {
+											"name": "Airport_Name"
+										}
+									},
+									{
+										"source": {
+											"name": "City",
+											"type": "String"
+										},
+										"sink": {
+											"name": "City_Name"
+										}
+									},
+									{
+										"source": {
+											"name": "IATA",
+											"type": "String"
+										},
+										"sink": {
+											"name": "IATA_Code"
+										}
+									},
+									{
+										"source": {
+											"name": "ICAO",
+											"type": "String"
+										},
+										"sink": {
+											"name": "ICAO_Code"
+										}
+									},
+									{
+										"source": {
+											"name": "Timezone",
+											"type": "Double"
+										},
+										"sink": {
+											"name": "TZ_Offset"
+										}
+									},
+									{
+										"source": {
+											"name": "Tz_Database_Timezone",
+											"type": "String"
+										},
+										"sink": {
+											"name": "TZ_Name"
+										}
+									}
+								]
+							}
 						},
 						"inputs": [
 							{
