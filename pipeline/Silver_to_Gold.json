@@ -397,198 +397,115 @@
 						"mappings": [
 							{
 								"source": {
-									"name": "Prop_0",
+									"name": "Name",
 									"type": "String"
 								},
 								"sink": {
-									"name": "FL_DATE"
+									"name": "INDEX_NR"
 								}
 							},
 							{
 								"source": {
-									"name": "Prop_1",
+									"name": "City",
 									"type": "String"
 								},
 								"sink": {
-									"name": "OP_UNIQUE_CARRIER"
+									"name": "INCIDENT_DATE"
 								}
 							},
 							{
 								"source": {
-									"name": "Prop_2",
+									"name": "Country",
 									"type": "String"
 								},
 								"sink": {
-									"name": "OP_CARRIER_AIRLINE_ID"
+									"name": "TIME"
 								}
 							},
 							{
 								"source": {
-									"name": "Prop_3",
+									"name": "IATA",
 									"type": "String"
 								},
 								"sink": {
-									"name": "OP_CARRIER"
+									"name": "AIRPORT_ID"
 								}
 							},
 							{
 								"source": {
-									"name": "Prop_4",
+									"name": "ICAO",
 									"type": "String"
 								},
 								"sink": {
-									"name": "TAIL_NUM"
+									"name": "OPID"
 								}
 							},
 							{
 								"source": {
-									"name": "Prop_5",
-									"type": "String"
+									"name": "Latitude",
+									"type": "Double"
 								},
 								"sink": {
-									"name": "OP_CARRIER_FL_NUM"
+									"name": "REG"
 								}
 							},
 							{
 								"source": {
-									"name": "Prop_6",
-									"type": "String"
+									"name": "Longitude",
+									"type": "Double"
 								},
 								"sink": {
-									"name": "ORIGIN_AIRPORT_SEQ_ID"
+									"name": "AMA"
 								}
 							},
 							{
 								"source": {
-									"name": "Prop_7",
-									"type": "String"
+									"name": "Timezone",
+									"type": "Double"
 								},
 								"sink": {
-									"name": "ORIGIN_CITY_MARKET_ID"
+									"name": "AMO"
 								}
 							},
 							{
 								"source": {
-									"name": "Prop_8",
+									"name": "Tz_Database_Timezone",
 									"type": "String"
 								},
 								"sink": {
-									"name": "ORIGIN"
+									"name": "AC_CLASS"
 								}
 							},
 							{
 								"source": {
-									"name": "Prop_9",
-									"type": "String"
+									"name": "Load_Date",
+									"type": "DateTime"
 								},
 								"sink": {
-									"name": "DEST_AIRPORT_SEQ_ID"
+									"name": "AC_MASS"
 								}
 							},
 							{
 								"source": {
-									"name": "Prop_10",
+									"name": "ETL_Batch_ID",
 									"type": "String"
 								},
 								"sink": {
-									"name": "DEST_CITY_MARKET_ID"
+									"name": "TYPE_ENG"
 								}
 							},
 							{
 								"source": {
-									"name": "Prop_11",
+									"name": "Record_Source",
 									"type": "String"
 								},
 								"sink": {
-									"name": "DEST"
-								}
-							},
-							{
-								"source": {
-									"name": "Prop_12",
-									"type": "String"
-								},
-								"sink": {
-									"name": "CRS_DEP_TIME"
-								}
-							},
-							{
-								"source": {
-									"name": "Prop_13",
-									"type": "String"
-								},
-								"sink": {
-									"name": "DEP_TIME"
+									"name": "NUM_ENGS"
 								}
 							},
 							{
 								"sink": {
-									"name": "DEP_DELAY"
-								}
-							},
-							{
-								"sink": {
-									"name": "DEP_DEL15"
-								}
-							},
-							{
-								"sink": {
-									"name": "TAXI_OUT"
-								}
-							},
-							{
-								"sink": {
-									"name": "TAXI_IN"
-								}
-							},
-							{
-								"sink": {
-									"name": "CRS_ARR_TIME"
-								}
-							},
-							{
-								"sink": {
-									"name": "ARR_TIME"
-								}
-							},
-							{
-								"sink": {
-									"name": "ARR_DELAY"
-								}
-							},
-							{
-								"sink": {
-									"name": "ARR_DEL15"
-								}
-							},
-							{
-								"sink": {
-									"name": "CANCELLED"
-								}
-							},
-							{
-								"sink": {
-									"name": "CANCELLATION_CODE"
-								}
-							},
-							{
-								"sink": {
-									"name": "DIVERTED"
-								}
-							},
-							{
-								"sink": {
-									"name": "CRS_ELAPSED_TIME"
-								}
-							},
-							{
-								"sink": {
-									"name": "ACTUAL_ELAPSED_TIME"
-								}
-							},
-							{
-								"sink": {
-									"name": "AIR_TIME"
+									"name": "PHASE_OF_FLIGHT"
 								}
 							},
 							{
@@ -598,27 +515,52 @@
 							},
 							{
 								"sink": {
-									"name": "CARRIER_DELAY"
+									"name": "AOS"
 								}
 							},
 							{
 								"sink": {
-									"name": "WEATHER_DELAY"
+									"name": "INDICATED_DAMAGE"
 								}
 							},
 							{
 								"sink": {
-									"name": "NAS_DELAY"
+									"name": "DAMAGE_LEVEL"
 								}
 							},
 							{
 								"sink": {
-									"name": "SECURITY_DELAY"
+									"name": "NUM_STRUCK"
 								}
 							},
 							{
 								"sink": {
-									"name": "LATE_AIRCRAFT_DELAY"
+									"name": "SIZE"
+								}
+							},
+							{
+								"sink": {
+									"name": "NR_INJURIES"
+								}
+							},
+							{
+								"sink": {
+									"name": "NR_FATALITIES"
+								}
+							},
+							{
+								"sink": {
+									"name": "NUM_SEEN"
+								}
+							},
+							{
+								"sink": {
+									"name": "EFFECT"
+								}
+							},
+							{
+								"sink": {
+									"name": "SPECIES"
 								}
 							}
 						]
@@ -712,7 +654,6 @@
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
 							"recursive": true,
-							"wildcardFolderPath": "faa",
 							"wildcardFileName": "*.parquet",
 							"enablePartitionDiscovery": false
 						},
@@ -727,8 +668,225 @@
 					},
 					"enableStaging": false,
 					"translator": {
-					    "type": "TabularTranslator",
-					    "columnMappings": "INDEX_NR:INDEX_NR, INCIDENT_DATE:INCIDENT_DATE, TIME:TIME, AIRPORT_ID:AIRPORT_ID, OPID:OPID, REG:REG, AMA:AMA, AMO:AMO, AC_CLASS:AC_CLASS, AC_MASS:AC_MASS, TYPE_ENG:TYPE_ENG, NUM_ENGS:NUM_ENGS, PHASE_OF_FLIGHT:PHASE_OF_FLIGHT, DISTANCE:DISTANCE, AOS:AOS, INDICATED_DAMAGE:INDICATED_DAMAGE, DAMAGE_LEVEL:DAMAGE_LEVEL, NUM_STRUCK:NUM_STRUCK, SIZE:SIZE, NR_INJURIES:NR_INJURIES, NR_FATALITIES:NR_FATALITIES, NUM_SEEN:NUM_SEEN, EFFECT:EFFECT, SPECIES:SPECIES"
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "INDEX_NR",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "INDEX_NR"
+								}
+							},
+							{
+								"source": {
+									"name": "INCIDENT_DATE",
+									"type": "DateTime"
+								},
+								"sink": {
+									"name": "INCIDENT_DATE"
+								}
+							},
+							{
+								"source": {
+									"name": "TIME",
+									"type": "String"
+								},
+								"sink": {
+									"name": "TIME"
+								}
+							},
+							{
+								"source": {
+									"name": "AIRPORT_ID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "AIRPORT_ID"
+								}
+							},
+							{
+								"source": {
+									"name": "OPID",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OPID"
+								}
+							},
+							{
+								"source": {
+									"name": "REG",
+									"type": "String"
+								},
+								"sink": {
+									"name": "REG"
+								}
+							},
+							{
+								"source": {
+									"name": "AMA",
+									"type": "String"
+								},
+								"sink": {
+									"name": "AMA"
+								}
+							},
+							{
+								"source": {
+									"name": "AMO",
+									"type": "String"
+								},
+								"sink": {
+									"name": "AMO"
+								}
+							},
+							{
+								"source": {
+									"name": "AC_CLASS",
+									"type": "String"
+								},
+								"sink": {
+									"name": "AC_CLASS"
+								}
+							},
+							{
+								"source": {
+									"name": "AC_MASS",
+									"type": "Int16"
+								},
+								"sink": {
+									"name": "AC_MASS"
+								}
+							},
+							{
+								"source": {
+									"name": "TYPE_ENG",
+									"type": "String"
+								},
+								"sink": {
+									"name": "TYPE_ENG"
+								}
+							},
+							{
+								"source": {
+									"name": "NUM_ENGS",
+									"type": "Int16"
+								},
+								"sink": {
+									"name": "NUM_ENGS"
+								}
+							},
+							{
+								"source": {
+									"name": "PHASE_OF_FLIGHT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "PHASE_OF_FLIGHT"
+								}
+							},
+							{
+								"source": {
+									"name": "DISTANCE",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "DISTANCE"
+								}
+							},
+							{
+								"source": {
+									"name": "AOS",
+									"type": "Int16"
+								},
+								"sink": {
+									"name": "AOS"
+								}
+							},
+							{
+								"source": {
+									"name": "INDICATED_DAMAGE",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "INDICATED_DAMAGE"
+								}
+							},
+							{
+								"source": {
+									"name": "DAMAGE_LEVEL",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DAMAGE_LEVEL"
+								}
+							},
+							{
+								"source": {
+									"name": "NUM_STRUCK",
+									"type": "String"
+								},
+								"sink": {
+									"name": "NUM_STRUCK"
+								}
+							},
+							{
+								"source": {
+									"name": "SIZE",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SIZE"
+								}
+							},
+							{
+								"source": {
+									"name": "NR_INJURIES",
+									"type": "Boolean"
+								},
+								"sink": {
+									"name": "NR_INJURIES"
+								}
+							},
+							{
+								"source": {
+									"name": "NR_FATALITIES",
+									"type": "String"
+								},
+								"sink": {
+									"name": "NR_FATALITIES"
+								}
+							},
+							{
+								"source": {
+									"name": "NUM_SEEN",
+									"type": "String"
+								},
+								"sink": {
+									"name": "NUM_SEEN"
+								}
+							},
+							{
+								"source": {
+									"name": "EFFECT",
+									"type": "String"
+								},
+								"sink": {
+									"name": "EFFECT"
+								}
+							},
+							{
+								"source": {
+									"name": "SPECIES",
+									"type": "String"
+								},
+								"sink": {
+									"name": "SPECIES"
+								}
+							}
+						]
 					}
 				},
 				"inputs": [

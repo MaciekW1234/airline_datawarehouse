@@ -15,7 +15,64 @@
 			},
 			"compressionCodec": "snappy"
 		},
-		"schema": []
+		"schema": [
+			{
+				"name": "Prop_0",
+				"type": "UTF8"
+			},
+			{
+				"name": "Prop_1",
+				"type": "UTF8"
+			},
+			{
+				"name": "Prop_2",
+				"type": "UTF8"
+			},
+			{
+				"name": "Prop_3",
+				"type": "UTF8"
+			},
+			{
+				"name": "Prop_4",
+				"type": "UTF8"
+			},
+			{
+				"name": "Prop_5",
+				"type": "UTF8"
+			},
+			{
+				"name": "Prop_6",
+				"type": "UTF8"
+			},
+			{
+				"name": "Prop_7",
+				"type": "UTF8"
+			},
+			{
+				"name": "Prop_8",
+				"type": "UTF8"
+			},
+			{
+				"name": "Prop_9",
+				"type": "UTF8"
+			},
+			{
+				"name": "Prop_10",
+				"type": "UTF8"
+			},
+			{
+				"name": "Prop_11",
+				"type": "UTF8"
+			},
+			{
+				"name": "Prop_12",
+				"type": "UTF8"
+			},
+			{
+				"name": "Prop_13",
+				"type": "UTF8"
+			}
+		]
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
 }
