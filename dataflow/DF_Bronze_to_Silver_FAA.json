@@ -139,6 +139,7 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     limit: 10000,",
 				"     ignoreNoFilesFound: false) ~> BronzeFAA",
 				"BronzeFAA derive(OPID = iif(isNull(OPID) || trim(OPID)=='', toString(null()), upper(trim(OPID))),",
 				"          AIRPORT_ID = iif(isNull(AIRPORT_ID) || trim(AIRPORT_ID)=='', toString(null()), upper(trim(AIRPORT_ID))),",

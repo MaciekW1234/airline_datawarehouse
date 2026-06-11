@@ -580,6 +580,7 @@
 						"sqlWriterUseTableLock": false
 					},
 					"enableStaging": false,
+					"enableSkipIncompatibleRow": true,
 					"translator": {
 						"type": "TabularTranslator",
 						"mappings": [
@@ -720,15 +721,6 @@
 							},
 							{
 								"source": {
-									"name": "INDICATED_DAMAGE",
-									"type": "Boolean"
-								},
-								"sink": {
-									"name": "INDICATED_DAMAGE"
-								}
-							},
-							{
-								"source": {
 									"name": "DAMAGE_LEVEL",
 									"type": "String"
 								},
@@ -752,15 +744,6 @@
 								},
 								"sink": {
 									"name": "SIZE"
-								}
-							},
-							{
-								"source": {
-									"name": "NR_INJURIES",
-									"type": "Boolean"
-								},
-								"sink": {
-									"name": "NR_INJURIES"
 								}
 							},
 							{
