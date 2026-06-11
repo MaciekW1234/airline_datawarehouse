@@ -19,7 +19,10 @@
 						"referenceName": "DF_Bronze_to_Silver_BTS",
 						"type": "DataFlowReference",
 						"parameters": {
-							"monthFolder": "'Apr2025'"
+							"monthFolder": {
+								"value": "'@{pipeline().parameters.monthFolder}'",
+								"type": "Expression"
+							}
 						},
 						"datasetParameters": {
 							"BronzeBTS": {
@@ -38,6 +41,11 @@
 				}
 			}
 		],
+		"parameters": {
+			"monthFolder": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"lastPublishTime": "2026-06-09T19:28:50Z"
 	},
