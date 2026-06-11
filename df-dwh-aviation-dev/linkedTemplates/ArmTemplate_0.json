@@ -1751,6 +1751,208 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/DF_Bronze_to_Silver_FAA')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "DS_Bronze_FAA",
+								"type": "DatasetReference"
+							},
+							"name": "BronzeFAA"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "DS_Silver_FAA",
+								"type": "DatasetReference"
+							},
+							"name": "SilverFAA"
+						}
+					],
+					"transformations": [
+						{
+							"name": "CleanAndStandardize"
+						},
+						{
+							"name": "SelectFAAColumns"
+						},
+						{
+							"name": "AddAudit"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          INDEX_NR as integer,",
+						"          INCIDENT_DATE as date,",
+						"          INCIDENT_MONTH as short,",
+						"          INCIDENT_YEAR as short,",
+						"          TIME as string,",
+						"          TIME_OF_DAY as string,",
+						"          AIRPORT_ID as string,",
+						"          AIRPORT as string,",
+						"          LATITUDE as double,",
+						"          LONGITUDE as double,",
+						"          RUNWAY as string,",
+						"          STATE as string,",
+						"          FAAREGION as string,",
+						"          LOCATION as string,",
+						"          OPID as string,",
+						"          OPERATOR as string,",
+						"          REG as string,",
+						"          FLT as short,",
+						"          AIRCRAFT as string,",
+						"          AMA as string,",
+						"          AMO as short,",
+						"          EMA as short,",
+						"          EMO as short,",
+						"          AC_CLASS as string,",
+						"          AC_MASS as short,",
+						"          TYPE_ENG as string,",
+						"          NUM_ENGS as short,",
+						"          ENG_1_POS as short,",
+						"          ENG_2_POS as short,",
+						"          ENG_3_POS as short,",
+						"          ENG_4_POS as short,",
+						"          PHASE_OF_FLIGHT as string,",
+						"          HEIGHT as short,",
+						"          SPEED as short,",
+						"          DISTANCE as double,",
+						"          SKY as string,",
+						"          PRECIPITATION as string,",
+						"          AOS as short,",
+						"          COST_REPAIRS as integer,",
+						"          COST_OTHER as integer,",
+						"          COST_REPAIRS_INFL_ADJ as integer,",
+						"          COST_OTHER_INFL_ADJ as integer,",
+						"          INGESTED_OTHER as boolean,",
+						"          INDICATED_DAMAGE as boolean,",
+						"          DAMAGE_LEVEL as string,",
+						"          STR_RAD as boolean,",
+						"          DAM_RAD as boolean,",
+						"          STR_WINDSHLD as boolean,",
+						"          DAM_WINDSHLD as boolean,",
+						"          STR_NOSE as boolean,",
+						"          DAM_NOSE as boolean,",
+						"          STR_ENG1 as boolean,",
+						"          DAM_ENG1 as boolean,",
+						"          ING_ENG1 as boolean,",
+						"          STR_ENG2 as boolean,",
+						"          DAM_ENG2 as boolean,",
+						"          ING_ENG2 as boolean,",
+						"          STR_ENG3 as boolean,",
+						"          DAM_ENG3 as boolean,",
+						"          ING_ENG3 as boolean,",
+						"          STR_ENG4 as boolean,",
+						"          DAM_ENG4 as boolean,",
+						"          ING_ENG4 as boolean,",
+						"          STR_PROP as boolean,",
+						"          DAM_PROP as boolean,",
+						"          STR_WING_ROT as boolean,",
+						"          DAM_WING_ROT as boolean,",
+						"          STR_FUSE as boolean,",
+						"          DAM_FUSE as boolean,",
+						"          STR_LG as boolean,",
+						"          DAM_LG as boolean,",
+						"          STR_TAIL as boolean,",
+						"          DAM_TAIL as boolean,",
+						"          STR_LGHTS as boolean,",
+						"          DAM_LGHTS as boolean,",
+						"          STR_OTHER as boolean,",
+						"          DAM_OTHER as boolean,",
+						"          OTHER_SPECIFY as string,",
+						"          EFFECT as string,",
+						"          EFFECT_OTHER as string,",
+						"          BIRD_BAND_NUMBER as string,",
+						"          SPECIES_ID as string,",
+						"          SPECIES as string,",
+						"          OUT_OF_RANGE_SPECIES as boolean,",
+						"          REMARKS as string,",
+						"          REMAINS_COLLECTED as string,",
+						"          REMAINS_SENT as boolean,",
+						"          WARNED as string,",
+						"          NUM_SEEN as string,",
+						"          NUM_STRUCK as string,",
+						"          SIZE as string,",
+						"          ENROUTE_STATE as string,",
+						"          NR_INJURIES as boolean,",
+						"          NR_FATALITIES as string,",
+						"          COMMENTS as string,",
+						"          IMAGE as string,",
+						"          REPORTED_NAME as string,",
+						"          REPORTED_TITLE as string,",
+						"          SOURCE as string,",
+						"          PERSON as string,",
+						"          LUPDATE as string,",
+						"          {{TRANSFER} as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> BronzeFAA",
+						"BronzeFAA derive(OPID = iif(isNull(OPID) || trim(OPID)=='', toString(null()), upper(trim(OPID))),",
+						"          AIRPORT_ID = iif(isNull(AIRPORT_ID) || trim(AIRPORT_ID)=='', toString(null()), upper(trim(AIRPORT_ID))),",
+						"          AMA = iif(isNull(AMA) || trim(AMA)=='', toString(null()), upper(trim(AMA))),",
+						"          AMO = iif(isNull(AMO) || trim(toString(AMO))=='', toString(null()), upper(trim(toString(AMO)))),",
+						"          REG = iif(isNull(REG) || trim(REG)=='', toString(null()), upper(trim(REG))),",
+						"          AC_CLASS = iif(isNull(AC_CLASS) || trim(AC_CLASS)=='', toString(null()), upper(trim(AC_CLASS))),",
+						"          TYPE_ENG = iif(isNull(TYPE_ENG) || trim(TYPE_ENG)=='', toString(null()), upper(trim(TYPE_ENG))),",
+						"          DAMAGE_LEVEL = iif(isNull(DAMAGE_LEVEL) || trim(DAMAGE_LEVEL)=='', toString(null()), upper(trim(DAMAGE_LEVEL))),",
+						"          PHASE_OF_FLIGHT = iif(isNull(PHASE_OF_FLIGHT) || trim(PHASE_OF_FLIGHT)=='', toString(null()), trim(PHASE_OF_FLIGHT)),",
+						"          SPECIES = iif(isNull(SPECIES) || trim(SPECIES)=='', toString(null()), trim(SPECIES)),",
+						"          SIZE = iif(isNull(SIZE) || trim(SIZE)=='', toString(null()), trim(SIZE)),",
+						"          EFFECT = iif(isNull(EFFECT) || trim(EFFECT)=='', toString(null()), trim(EFFECT)),",
+						"          INDICATED_DAMAGE = iifNull(INDICATED_DAMAGE, false())) ~> CleanAndStandardize",
+						"CleanAndStandardize select(mapColumn(",
+						"          INDEX_NR,",
+						"          INCIDENT_DATE,",
+						"          TIME,",
+						"          AIRPORT_ID,",
+						"          OPID,",
+						"          REG,",
+						"          AMA,",
+						"          AMO,",
+						"          AC_CLASS,",
+						"          AC_MASS,",
+						"          TYPE_ENG,",
+						"          NUM_ENGS,",
+						"          PHASE_OF_FLIGHT,",
+						"          DISTANCE,",
+						"          AOS,",
+						"          INDICATED_DAMAGE,",
+						"          DAMAGE_LEVEL,",
+						"          NUM_STRUCK,",
+						"          SIZE,",
+						"          NR_INJURIES,",
+						"          NR_FATALITIES,",
+						"          NUM_SEEN",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> SelectFAAColumns",
+						"SelectFAAColumns derive(Load_Date = currentTimestamp(),",
+						"          ETL_Batch_ID = 'FAA_INIT',",
+						"          Record_Source = 'FAA') ~> AddAudit",
+						"AddAudit sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'parquet',",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> SilverFAA"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_Bronze_FAA')]",
+				"[concat(variables('factoryId'), '/datasets/DS_Silver_FAA')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/DF_Bronze_to_Silver_OF')]",
 			"type": "Microsoft.DataFactory/factories/dataflows",
 			"apiVersion": "2018-06-01",
@@ -1910,53 +2112,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/DF_Bronze_to_Silver_BTS')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Bronze_to_Silver_OF')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "DF_Bronze_to_SIlver_OF",
-						"type": "ExecuteDataFlow",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataflow": {
-								"referenceName": "DF_Bronze_to_Silver_OF",
-								"type": "DataFlowReference",
-								"parameters": {},
-								"datasetParameters": {
-									"BronzeOF": {},
-									"SilverOF": {}
-								}
-							},
-							"staging": {},
-							"compute": {
-								"coreCount": 8,
-								"computeType": "General"
-							},
-							"traceLevel": "Fine"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": [],
-				"lastPublishTime": "2026-05-10T20:39:11Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/dataflows/DF_Bronze_to_Silver_OF')]"
 			]
 		}
 	]
