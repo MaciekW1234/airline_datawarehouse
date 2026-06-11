@@ -1424,64 +1424,6 @@
 				},
 				"annotations": [],
 				"type": "AzureSqlTable",
-				"structure": [
-					{
-						"name": "OF_ID",
-						"type": "Int32"
-					},
-					{
-						"name": "Airport_Name",
-						"type": "String"
-					},
-					{
-						"name": "City_Name",
-						"type": "String"
-					},
-					{
-						"name": "Country",
-						"type": "String"
-					},
-					{
-						"name": "IATA_Code",
-						"type": "String"
-					},
-					{
-						"name": "ICAO_Code",
-						"type": "String"
-					},
-					{
-						"name": "Latitude",
-						"type": "String"
-					},
-					{
-						"name": "Longitude",
-						"type": "String"
-					},
-					{
-						"name": "Altitude_FT",
-						"type": "String"
-					},
-					{
-						"name": "TZ_Offset",
-						"type": "String"
-					},
-					{
-						"name": "DST_Ind",
-						"type": "String"
-					},
-					{
-						"name": "TZ_Name",
-						"type": "String"
-					},
-					{
-						"name": "Airport_Type",
-						"type": "String"
-					},
-					{
-						"name": "OF_Source",
-						"type": "String"
-					}
-				],
 				"typeProperties": {
 					"tableName": {
 						"value": "@dataset().tableName",
