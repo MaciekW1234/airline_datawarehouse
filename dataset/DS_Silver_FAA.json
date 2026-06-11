@@ -10,12 +10,122 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": "*.parquet",
 				"folderPath": "faa",
 				"fileSystem": "silver"
 			},
 			"compressionCodec": "snappy"
 		},
-		"schema": []
+		"schema": [
+			{
+				"name": "INDEX_NR",
+				"type": "INT32"
+			},
+			{
+				"name": "INCIDENT_DATE",
+				"type": "DATE"
+			},
+			{
+				"name": "TIME",
+				"type": "UTF8"
+			},
+			{
+				"name": "AIRPORT_ID",
+				"type": "UTF8"
+			},
+			{
+				"name": "OPID",
+				"type": "UTF8"
+			},
+			{
+				"name": "REG",
+				"type": "UTF8"
+			},
+			{
+				"name": "AMA",
+				"type": "UTF8"
+			},
+			{
+				"name": "AMO",
+				"type": "UTF8"
+			},
+			{
+				"name": "AC_CLASS",
+				"type": "UTF8"
+			},
+			{
+				"name": "AC_MASS",
+				"type": "INT_16"
+			},
+			{
+				"name": "TYPE_ENG",
+				"type": "UTF8"
+			},
+			{
+				"name": "NUM_ENGS",
+				"type": "INT_16"
+			},
+			{
+				"name": "PHASE_OF_FLIGHT",
+				"type": "UTF8"
+			},
+			{
+				"name": "DISTANCE",
+				"type": "DOUBLE"
+			},
+			{
+				"name": "AOS",
+				"type": "INT_16"
+			},
+			{
+				"name": "INDICATED_DAMAGE",
+				"type": "BOOLEAN"
+			},
+			{
+				"name": "DAMAGE_LEVEL",
+				"type": "UTF8"
+			},
+			{
+				"name": "NUM_STRUCK",
+				"type": "UTF8"
+			},
+			{
+				"name": "SIZE",
+				"type": "UTF8"
+			},
+			{
+				"name": "NR_INJURIES",
+				"type": "BOOLEAN"
+			},
+			{
+				"name": "NR_FATALITIES",
+				"type": "UTF8"
+			},
+			{
+				"name": "NUM_SEEN",
+				"type": "UTF8"
+			},
+			{
+				"name": "EFFECT",
+				"type": "UTF8"
+			},
+			{
+				"name": "SPECIES",
+				"type": "UTF8"
+			},
+			{
+				"name": "Load_Date",
+				"type": "INT96"
+			},
+			{
+				"name": "ETL_Batch_ID",
+				"type": "UTF8"
+			},
+			{
+				"name": "Record_Source",
+				"type": "UTF8"
+			}
+		]
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
 }

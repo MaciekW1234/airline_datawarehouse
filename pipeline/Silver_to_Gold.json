@@ -355,7 +355,7 @@
 				}
 			},
 			{
-				"name": "Copy_Silver_FAA_to_Staging",
+				"name": "Copy_Silver_OF_to_Staging",
 				"type": "Copy",
 				"dependsOn": [
 					{
@@ -392,6 +392,340 @@
 					},
 					"enableStaging": false,
 					"enableSkipIncompatibleRow": true,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "Prop_0",
+									"type": "String"
+								},
+								"sink": {
+									"name": "FL_DATE"
+								}
+							},
+							{
+								"source": {
+									"name": "Prop_1",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OP_UNIQUE_CARRIER"
+								}
+							},
+							{
+								"source": {
+									"name": "Prop_2",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OP_CARRIER_AIRLINE_ID"
+								}
+							},
+							{
+								"source": {
+									"name": "Prop_3",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OP_CARRIER"
+								}
+							},
+							{
+								"source": {
+									"name": "Prop_4",
+									"type": "String"
+								},
+								"sink": {
+									"name": "TAIL_NUM"
+								}
+							},
+							{
+								"source": {
+									"name": "Prop_5",
+									"type": "String"
+								},
+								"sink": {
+									"name": "OP_CARRIER_FL_NUM"
+								}
+							},
+							{
+								"source": {
+									"name": "Prop_6",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ORIGIN_AIRPORT_SEQ_ID"
+								}
+							},
+							{
+								"source": {
+									"name": "Prop_7",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ORIGIN_CITY_MARKET_ID"
+								}
+							},
+							{
+								"source": {
+									"name": "Prop_8",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ORIGIN"
+								}
+							},
+							{
+								"source": {
+									"name": "Prop_9",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DEST_AIRPORT_SEQ_ID"
+								}
+							},
+							{
+								"source": {
+									"name": "Prop_10",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DEST_CITY_MARKET_ID"
+								}
+							},
+							{
+								"source": {
+									"name": "Prop_11",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DEST"
+								}
+							},
+							{
+								"source": {
+									"name": "Prop_12",
+									"type": "String"
+								},
+								"sink": {
+									"name": "CRS_DEP_TIME"
+								}
+							},
+							{
+								"source": {
+									"name": "Prop_13",
+									"type": "String"
+								},
+								"sink": {
+									"name": "DEP_TIME"
+								}
+							},
+							{
+								"sink": {
+									"name": "DEP_DELAY"
+								}
+							},
+							{
+								"sink": {
+									"name": "DEP_DEL15"
+								}
+							},
+							{
+								"sink": {
+									"name": "TAXI_OUT"
+								}
+							},
+							{
+								"sink": {
+									"name": "TAXI_IN"
+								}
+							},
+							{
+								"sink": {
+									"name": "CRS_ARR_TIME"
+								}
+							},
+							{
+								"sink": {
+									"name": "ARR_TIME"
+								}
+							},
+							{
+								"sink": {
+									"name": "ARR_DELAY"
+								}
+							},
+							{
+								"sink": {
+									"name": "ARR_DEL15"
+								}
+							},
+							{
+								"sink": {
+									"name": "CANCELLED"
+								}
+							},
+							{
+								"sink": {
+									"name": "CANCELLATION_CODE"
+								}
+							},
+							{
+								"sink": {
+									"name": "DIVERTED"
+								}
+							},
+							{
+								"sink": {
+									"name": "CRS_ELAPSED_TIME"
+								}
+							},
+							{
+								"sink": {
+									"name": "ACTUAL_ELAPSED_TIME"
+								}
+							},
+							{
+								"sink": {
+									"name": "AIR_TIME"
+								}
+							},
+							{
+								"sink": {
+									"name": "DISTANCE"
+								}
+							},
+							{
+								"sink": {
+									"name": "CARRIER_DELAY"
+								}
+							},
+							{
+								"sink": {
+									"name": "WEATHER_DELAY"
+								}
+							},
+							{
+								"sink": {
+									"name": "NAS_DELAY"
+								}
+							},
+							{
+								"sink": {
+									"name": "SECURITY_DELAY"
+								}
+							},
+							{
+								"sink": {
+									"name": "LATE_AIRCRAFT_DELAY"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_Silver_OF_Source",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_Staging_SQL",
+						"type": "DatasetReference",
+						"parameters": {
+							"tableName": "stg.OF_Airports"
+						}
+					}
+				]
+			},
+			{
+				"name": "SP_Silver_to_Gold",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "ForEach_BTS_Months",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Copy_Silver_OF_to_Staging",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "Copy_Silver_FAA_to_Staging",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[silver].[sp_Silver_to_Gold_Master]",
+					"storedProcedureParameters": {
+						"ETL_Batch_ID": {
+							"value": {
+								"value": "202512",
+								"type": "Expression"
+							},
+							"type": "Int64"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "LS_SQL_Gold",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Copy_Silver_FAA_to_Staging",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "SP_Truncate_Staging",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "ParquetSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFolderPath": "faa",
+							"wildcardFileName": "*.parquet",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "ParquetReadSettings"
+						}
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
 						"mappings": [
@@ -538,7 +872,7 @@
 							{
 								"source": {
 									"name": "DISTANCE",
-									"type": "String"
+									"type": "Double"
 								},
 								"sink": {
 									"name": "DISTANCE"
@@ -587,225 +921,6 @@
 						}
 					}
 				]
-			},
-			{
-				"name": "Copy_Silver_OF_to_Staging",
-				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "SP_Truncate_Staging",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "ParquetSource",
-						"storeSettings": {
-							"type": "AzureBlobFSReadSettings",
-							"recursive": true,
-							"wildcardFileName": "*.parquet",
-							"enablePartitionDiscovery": false
-						},
-						"formatSettings": {
-							"type": "ParquetReadSettings"
-						}
-					},
-					"sink": {
-						"type": "AzureSqlSink",
-						"writeBehavior": "insert",
-						"sqlWriterUseTableLock": false
-					},
-					"enableStaging": false,
-					"enableSkipIncompatibleRow": true,
-					"translator": {
-						"type": "TabularTranslator",
-						"mappings": [
-							{
-								"source": {
-									"name": "Prop_0"
-								},
-								"sink": {
-									"name": "OF_ID"
-								}
-							},
-							{
-								"source": {
-									"name": "Prop_1"
-								},
-								"sink": {
-									"name": "Airport_Name"
-								}
-							},
-							{
-								"source": {
-									"name": "Prop_2"
-								},
-								"sink": {
-									"name": "City_Name"
-								}
-							},
-							{
-								"source": {
-									"name": "Prop_3"
-								},
-								"sink": {
-									"name": "Country"
-								}
-							},
-							{
-								"source": {
-									"name": "Prop_4"
-								},
-								"sink": {
-									"name": "IATA_Code"
-								}
-							},
-							{
-								"source": {
-									"name": "Prop_5"
-								},
-								"sink": {
-									"name": "ICAO_Code"
-								}
-							},
-							{
-								"source": {
-									"name": "Prop_6"
-								},
-								"sink": {
-									"name": "Latitude"
-								}
-							},
-							{
-								"source": {
-									"name": "Prop_7"
-								},
-								"sink": {
-									"name": "Longitude"
-								}
-							},
-							{
-								"source": {
-									"name": "Prop_8"
-								},
-								"sink": {
-									"name": "Altitude_FT"
-								}
-							},
-							{
-								"source": {
-									"name": "Prop_9"
-								},
-								"sink": {
-									"name": "TZ_Offset"
-								}
-							},
-							{
-								"source": {
-									"name": "Prop_10"
-								},
-								"sink": {
-									"name": "DST_Ind"
-								}
-							},
-							{
-								"source": {
-									"name": "Prop_11"
-								},
-								"sink": {
-									"name": "TZ_Name"
-								}
-							},
-							{
-								"source": {
-									"name": "Prop_12"
-								},
-								"sink": {
-									"name": "Airport_Type"
-								}
-							},
-							{
-								"source": {
-									"name": "Prop_13"
-								},
-								"sink": {
-									"name": "OF_Source"
-								}
-							}
-						]
-					}
-				},
-				"inputs": [
-					{
-						"referenceName": "DS_Silver_OF_Source",
-						"type": "DatasetReference"
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "DS_Staging_SQL",
-						"type": "DatasetReference",
-						"parameters": {
-							"tableName": "stg.OF_Airports"
-						}
-					}
-				]
-			},
-			{
-				"name": "SP_Silver_to_Gold",
-				"type": "SqlServerStoredProcedure",
-				"dependsOn": [
-					{
-						"activity": "ForEach_BTS_Months",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "Copy_Silver_FAA_to_Staging",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "Copy_Silver_OF_to_Staging",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"storedProcedureName": "[silver].[sp_Silver_to_Gold_Master]",
-					"storedProcedureParameters": {
-						"ETL_Batch_ID": {
-							"value": {
-								"value": "202512",
-								"type": "Expression"
-							},
-							"type": "Int64"
-						}
-					}
-				},
-				"linkedServiceName": {
-					"referenceName": "LS_SQL_Gold",
-					"type": "LinkedServiceReference"
-				}
 			}
 		],
 		"annotations": [],
