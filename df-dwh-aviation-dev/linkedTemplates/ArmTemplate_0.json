@@ -526,7 +526,6 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "*.parquet",
 						"folderPath": "faa",
 						"fileSystem": "silver"
 					},
@@ -686,7 +685,6 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "*.parquet",
 						"folderPath": "openflights",
 						"fileSystem": "silver"
 					},
