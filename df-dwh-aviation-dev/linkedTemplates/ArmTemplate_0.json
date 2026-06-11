@@ -18,10 +18,6 @@
 		"LS_ADLS_Bronze_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://stdwhaviationdev.dfs.core.windows.net"
-		},
-		"Trigger_FAA_Upload_properties_typeProperties_scope": {
-			"type": "string",
-			"defaultValue": "/subscriptions/5c01aa12-dd53-4da6-ac9b-2cedc706e93e/resourceGroups/rg-dwh-aviation-dev/providers/Microsoft.Storage/storageAccounts/stdwhaviationdev"
 		}
 	},
 	"variables": {
@@ -1829,6 +1825,100 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/DF_Bronze_to_Silver_OF')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "DS_Bronze_OF",
+								"type": "DatasetReference"
+							},
+							"name": "BronzeOF"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "DS_Silver_OF",
+								"type": "DatasetReference"
+							},
+							"name": "SilverOF"
+						}
+					],
+					"transformations": [
+						{
+							"name": "CleanAndStandardize"
+						},
+						{
+							"name": "SelectOFColums"
+						},
+						{
+							"name": "AddAudit"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          Airport_ID as short,",
+						"          Name as string,",
+						"          City as string,",
+						"          Country as string,",
+						"          IATA as string,",
+						"          ICAO as string,",
+						"          Latitude as double,",
+						"          Longitude as double,",
+						"          Altitude as short,",
+						"          Timezone as double,",
+						"          DST as string,",
+						"          Tz_Database_Timezone as string,",
+						"          Type as string,",
+						"          Source as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> BronzeOF",
+						"BronzeOF derive(IATA = iif(isNull(IATA) || trim(IATA)=='' || trim(IATA)=='\\\\N', toString(null()), upper(trim(IATA))),",
+						"          ICAO = iif(isNull(ICAO) || trim(ICAO)=='' || trim(ICAO)=='\\\\N', toString(null()), upper(trim(ICAO))),",
+						"          Name = iif(isNull(Name) || trim(Name)=='' || trim(Name)=='\\\\N', toString(null()), trim(Name)),",
+						"          City = iif(isNull(City) || trim(City)=='' || trim(City)=='\\\\N', toString(null()), trim(City)),",
+						"          Country = iif(isNull(Country) || trim(Country)=='' || trim(Country)=='\\\\N', toString(null()), trim(Country)),",
+						"          Tz_Database_Timezone = iif(isNull(Tz_Database_Timezone) || trim(Tz_Database_Timezone)=='' || trim(Tz_Database_Timezone)=='\\\\N', toString(null()), trim(Tz_Database_Timezone))) ~> CleanAndStandardize",
+						"CleanAndStandardize select(mapColumn(",
+						"          Name,",
+						"          City,",
+						"          Country,",
+						"          IATA,",
+						"          ICAO,",
+						"          Latitude,",
+						"          Longitude,",
+						"          Timezone,",
+						"          Tz_Database_Timezone",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> SelectOFColums",
+						"SelectOFColums derive(Load_Date = currentTimestamp(),",
+						"          ETL_Batch_ID = 'OF_INIT',",
+						"          Record_Source = 'OpenFlights') ~> AddAudit",
+						"AddAudit sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'parquet',",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> SilverOF"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_Bronze_OF')]",
+				"[concat(variables('factoryId'), '/datasets/DS_Silver_OF')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Bronze_to_Silver_BTS')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -1894,37 +1984,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/DF_Bronze_to_Silver_BTS')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Trigger_FAA_Upload')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "Bronze_to_Silver_FAA",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "BlobEventsTrigger",
-				"typeProperties": {
-					"blobPathBeginsWith": "/bronze/blobs/faa/",
-					"blobPathEndsWith": ".csv",
-					"ignoreEmptyBlobs": true,
-					"scope": "[parameters('Trigger_FAA_Upload_properties_typeProperties_scope')]",
-					"events": [
-						"Microsoft.Storage.BlobCreated"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/Bronze_to_Silver_FAA')]"
 			]
 		}
 	]

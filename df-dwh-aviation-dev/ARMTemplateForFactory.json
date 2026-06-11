@@ -1995,6 +1995,100 @@
 				"[concat(variables('factoryId'), '/datasets/DS_Bronze_BTS_CSV')]",
 				"[concat(variables('factoryId'), '/datasets/DS_Silver_BTS')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DF_Bronze_to_Silver_OF')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "DS_Bronze_OF",
+								"type": "DatasetReference"
+							},
+							"name": "BronzeOF"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "DS_Silver_OF",
+								"type": "DatasetReference"
+							},
+							"name": "SilverOF"
+						}
+					],
+					"transformations": [
+						{
+							"name": "CleanAndStandardize"
+						},
+						{
+							"name": "SelectOFColums"
+						},
+						{
+							"name": "AddAudit"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          Airport_ID as short,",
+						"          Name as string,",
+						"          City as string,",
+						"          Country as string,",
+						"          IATA as string,",
+						"          ICAO as string,",
+						"          Latitude as double,",
+						"          Longitude as double,",
+						"          Altitude as short,",
+						"          Timezone as double,",
+						"          DST as string,",
+						"          Tz_Database_Timezone as string,",
+						"          Type as string,",
+						"          Source as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> BronzeOF",
+						"BronzeOF derive(IATA = iif(isNull(IATA) || trim(IATA)=='' || trim(IATA)=='\\\\N', toString(null()), upper(trim(IATA))),",
+						"          ICAO = iif(isNull(ICAO) || trim(ICAO)=='' || trim(ICAO)=='\\\\N', toString(null()), upper(trim(ICAO))),",
+						"          Name = iif(isNull(Name) || trim(Name)=='' || trim(Name)=='\\\\N', toString(null()), trim(Name)),",
+						"          City = iif(isNull(City) || trim(City)=='' || trim(City)=='\\\\N', toString(null()), trim(City)),",
+						"          Country = iif(isNull(Country) || trim(Country)=='' || trim(Country)=='\\\\N', toString(null()), trim(Country)),",
+						"          Tz_Database_Timezone = iif(isNull(Tz_Database_Timezone) || trim(Tz_Database_Timezone)=='' || trim(Tz_Database_Timezone)=='\\\\N', toString(null()), trim(Tz_Database_Timezone))) ~> CleanAndStandardize",
+						"CleanAndStandardize select(mapColumn(",
+						"          Name,",
+						"          City,",
+						"          Country,",
+						"          IATA,",
+						"          ICAO,",
+						"          Latitude,",
+						"          Longitude,",
+						"          Timezone,",
+						"          Tz_Database_Timezone",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> SelectOFColums",
+						"SelectOFColums derive(Load_Date = currentTimestamp(),",
+						"          ETL_Batch_ID = 'OF_INIT',",
+						"          Record_Source = 'OpenFlights') ~> AddAudit",
+						"AddAudit sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'parquet',",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> SilverOF"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_Bronze_OF')]",
+				"[concat(variables('factoryId'), '/datasets/DS_Silver_OF')]"
+			]
 		}
 	]
 }
