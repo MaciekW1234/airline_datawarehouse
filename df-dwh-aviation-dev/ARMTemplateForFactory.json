@@ -287,7 +287,8 @@
 											"mappings": [
 												{
 													"source": {
-														"name": "FL_DATE"
+														"name": "FL_DATE",
+														"type": "DateTime"
 													},
 													"sink": {
 														"name": "FL_DATE"
@@ -295,7 +296,8 @@
 												},
 												{
 													"source": {
-														"name": "OP_UNIQUE_CARRIER"
+														"name": "OP_UNIQUE_CARRIER",
+														"type": "String"
 													},
 													"sink": {
 														"name": "OP_UNIQUE_CARRIER"
@@ -303,7 +305,8 @@
 												},
 												{
 													"source": {
-														"name": "OP_CARRIER_AIRLINE_ID"
+														"name": "OP_CARRIER_AIRLINE_ID",
+														"type": "Int16"
 													},
 													"sink": {
 														"name": "OP_CARRIER_AIRLINE_ID"
@@ -311,7 +314,8 @@
 												},
 												{
 													"source": {
-														"name": "OP_CARRIER"
+														"name": "OP_CARRIER",
+														"type": "String"
 													},
 													"sink": {
 														"name": "OP_CARRIER"
@@ -319,7 +323,8 @@
 												},
 												{
 													"source": {
-														"name": "TAIL_NUM"
+														"name": "TAIL_NUM",
+														"type": "String"
 													},
 													"sink": {
 														"name": "TAIL_NUM"
@@ -327,7 +332,8 @@
 												},
 												{
 													"source": {
-														"name": "OP_CARRIER_FL_NUM"
+														"name": "OP_CARRIER_FL_NUM",
+														"type": "Int16"
 													},
 													"sink": {
 														"name": "OP_CARRIER_FL_NUM"
@@ -335,7 +341,8 @@
 												},
 												{
 													"source": {
-														"name": "ORIGIN_AIRPORT_SEQ_ID"
+														"name": "ORIGIN_AIRPORT_SEQ_ID",
+														"type": "Int32"
 													},
 													"sink": {
 														"name": "ORIGIN_AIRPORT_SEQ_ID"
@@ -343,15 +350,8 @@
 												},
 												{
 													"source": {
-														"name": "ORIGIN_CITY_MARKET_ID"
-													},
-													"sink": {
-														"name": "ORIGIN_CITY_MARKET_ID"
-													}
-												},
-												{
-													"source": {
-														"name": "ORIGIN"
+														"name": "ORIGIN",
+														"type": "String"
 													},
 													"sink": {
 														"name": "ORIGIN"
@@ -359,7 +359,8 @@
 												},
 												{
 													"source": {
-														"name": "DEST_AIRPORT_SEQ_ID"
+														"name": "DEST_AIRPORT_SEQ_ID",
+														"type": "Int32"
 													},
 													"sink": {
 														"name": "DEST_AIRPORT_SEQ_ID"
@@ -367,15 +368,8 @@
 												},
 												{
 													"source": {
-														"name": "DEST_CITY_MARKET_ID"
-													},
-													"sink": {
-														"name": "DEST_CITY_MARKET_ID"
-													}
-												},
-												{
-													"source": {
-														"name": "DEST"
+														"name": "DEST",
+														"type": "String"
 													},
 													"sink": {
 														"name": "DEST"
@@ -383,7 +377,8 @@
 												},
 												{
 													"source": {
-														"name": "CRS_DEP_TIME"
+														"name": "CRS_DEP_TIME",
+														"type": "Int16"
 													},
 													"sink": {
 														"name": "CRS_DEP_TIME"
@@ -391,7 +386,8 @@
 												},
 												{
 													"source": {
-														"name": "DEP_TIME"
+														"name": "DEP_TIME",
+														"type": "Int16"
 													},
 													"sink": {
 														"name": "DEP_TIME"
@@ -399,7 +395,8 @@
 												},
 												{
 													"source": {
-														"name": "DEP_DELAY"
+														"name": "DEP_DELAY",
+														"type": "Double"
 													},
 													"sink": {
 														"name": "DEP_DELAY"
@@ -407,7 +404,8 @@
 												},
 												{
 													"source": {
-														"name": "DEP_DEL15"
+														"name": "DEP_DEL15",
+														"type": "Double"
 													},
 													"sink": {
 														"name": "DEP_DEL15"
@@ -415,23 +413,8 @@
 												},
 												{
 													"source": {
-														"name": "TAXI_OUT"
-													},
-													"sink": {
-														"name": "TAXI_OUT"
-													}
-												},
-												{
-													"source": {
-														"name": "TAXI_IN"
-													},
-													"sink": {
-														"name": "TAXI_IN"
-													}
-												},
-												{
-													"source": {
-														"name": "CRS_ARR_TIME"
+														"name": "CRS_ARR_TIME",
+														"type": "Int16"
 													},
 													"sink": {
 														"name": "CRS_ARR_TIME"
@@ -439,7 +422,8 @@
 												},
 												{
 													"source": {
-														"name": "ARR_TIME"
+														"name": "ARR_TIME",
+														"type": "Int16"
 													},
 													"sink": {
 														"name": "ARR_TIME"
@@ -447,7 +431,8 @@
 												},
 												{
 													"source": {
-														"name": "ARR_DELAY"
+														"name": "ARR_DELAY",
+														"type": "Double"
 													},
 													"sink": {
 														"name": "ARR_DELAY"
@@ -455,7 +440,8 @@
 												},
 												{
 													"source": {
-														"name": "ARR_DEL15"
+														"name": "ARR_DEL15",
+														"type": "Double"
 													},
 													"sink": {
 														"name": "ARR_DEL15"
@@ -463,7 +449,8 @@
 												},
 												{
 													"source": {
-														"name": "CANCELLED"
+														"name": "CANCELLED",
+														"type": "Double"
 													},
 													"sink": {
 														"name": "CANCELLED"
@@ -471,7 +458,8 @@
 												},
 												{
 													"source": {
-														"name": "CANCELLATION_CODE"
+														"name": "CANCELLATION_CODE",
+														"type": "String"
 													},
 													"sink": {
 														"name": "CANCELLATION_CODE"
@@ -479,7 +467,8 @@
 												},
 												{
 													"source": {
-														"name": "DIVERTED"
+														"name": "DIVERTED",
+														"type": "Double"
 													},
 													"sink": {
 														"name": "DIVERTED"
@@ -487,31 +476,8 @@
 												},
 												{
 													"source": {
-														"name": "CRS_ELAPSED_TIME"
-													},
-													"sink": {
-														"name": "CRS_ELAPSED_TIME"
-													}
-												},
-												{
-													"source": {
-														"name": "ACTUAL_ELAPSED_TIME"
-													},
-													"sink": {
-														"name": "ACTUAL_ELAPSED_TIME"
-													}
-												},
-												{
-													"source": {
-														"name": "AIR_TIME"
-													},
-													"sink": {
-														"name": "AIR_TIME"
-													}
-												},
-												{
-													"source": {
-														"name": "DISTANCE"
+														"name": "DISTANCE",
+														"type": "Double"
 													},
 													"sink": {
 														"name": "DISTANCE"
@@ -519,7 +485,8 @@
 												},
 												{
 													"source": {
-														"name": "CARRIER_DELAY"
+														"name": "CARRIER_DELAY",
+														"type": "Double"
 													},
 													"sink": {
 														"name": "CARRIER_DELAY"
@@ -527,7 +494,8 @@
 												},
 												{
 													"source": {
-														"name": "WEATHER_DELAY"
+														"name": "WEATHER_DELAY",
+														"type": "Double"
 													},
 													"sink": {
 														"name": "WEATHER_DELAY"
@@ -535,7 +503,8 @@
 												},
 												{
 													"source": {
-														"name": "NAS_DELAY"
+														"name": "NAS_DELAY",
+														"type": "Double"
 													},
 													"sink": {
 														"name": "NAS_DELAY"
@@ -543,7 +512,8 @@
 												},
 												{
 													"source": {
-														"name": "SECURITY_DELAY"
+														"name": "SECURITY_DELAY",
+														"type": "Double"
 													},
 													"sink": {
 														"name": "SECURITY_DELAY"
@@ -551,7 +521,8 @@
 												},
 												{
 													"source": {
-														"name": "LATE_AIRCRAFT_DELAY"
+														"name": "LATE_AIRCRAFT_DELAY",
+														"type": "Double"
 													},
 													"sink": {
 														"name": "LATE_AIRCRAFT_DELAY"
@@ -584,323 +555,6 @@
 								}
 							]
 						}
-					},
-					{
-						"name": "Copy_Silver_FAA_to_Staging",
-						"type": "Copy",
-						"dependsOn": [
-							{
-								"activity": "SP_Truncate_Staging",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "ParquetSource",
-								"storeSettings": {
-									"type": "AzureBlobFSReadSettings",
-									"recursive": true,
-									"wildcardFileName": "*.parquet",
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "ParquetReadSettings"
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false
-							},
-							"enableStaging": false,
-							"enableSkipIncompatibleRow": true,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "INDEX_NR"
-										},
-										"sink": {
-											"name": "INDEX_NR"
-										}
-									},
-									{
-										"source": {
-											"name": "INCIDENT_DATE"
-										},
-										"sink": {
-											"name": "INCIDENT_DATE"
-										}
-									},
-									{
-										"source": {
-											"name": "TIME"
-										},
-										"sink": {
-											"name": "TIME"
-										}
-									},
-									{
-										"source": {
-											"name": "AIRPORT_ID"
-										},
-										"sink": {
-											"name": "AIRPORT_ID"
-										}
-									},
-									{
-										"source": {
-											"name": "AIRPORT"
-										},
-										"sink": {
-											"name": "AIRPORT"
-										}
-									},
-									{
-										"source": {
-											"name": "OPID"
-										},
-										"sink": {
-											"name": "OPID"
-										}
-									},
-									{
-										"source": {
-											"name": "REG"
-										},
-										"sink": {
-											"name": "REG"
-										}
-									},
-									{
-										"source": {
-											"name": "PHASE_OF_FLIGHT"
-										},
-										"sink": {
-											"name": "PHASE_OF_FLIGHT"
-										}
-									},
-									{
-										"source": {
-											"name": "DAMAGE_LEVEL"
-										},
-										"sink": {
-											"name": "DAMAGE_LEVEL"
-										}
-									},
-									{
-										"source": {
-											"name": "NUM_STRUCK"
-										},
-										"sink": {
-											"name": "NUM_STRUCK"
-										}
-									},
-									{
-										"source": {
-											"name": "NUM_SEEN"
-										},
-										"sink": {
-											"name": "NUM_SEEN"
-										}
-									},
-									{
-										"source": {
-											"name": "SIZE"
-										},
-										"sink": {
-											"name": "SIZE"
-										}
-									},
-									{
-										"source": {
-											"name": "EFFECT"
-										},
-										"sink": {
-											"name": "EFFECT"
-										}
-									},
-									{
-										"source": {
-											"name": "AMA"
-										},
-										"sink": {
-											"name": "AMA"
-										}
-									},
-									{
-										"source": {
-											"name": "AMO"
-										},
-										"sink": {
-											"name": "AMO"
-										}
-									},
-									{
-										"source": {
-											"name": "AC_CLASS"
-										},
-										"sink": {
-											"name": "AC_CLASS"
-										}
-									},
-									{
-										"source": {
-											"name": "AC_MASS"
-										},
-										"sink": {
-											"name": "AC_MASS"
-										}
-									},
-									{
-										"source": {
-											"name": "TYPE_ENG"
-										},
-										"sink": {
-											"name": "TYPE_ENG"
-										}
-									},
-									{
-										"source": {
-											"name": "NUM_ENGS"
-										},
-										"sink": {
-											"name": "NUM_ENGS"
-										}
-									},
-									{
-										"source": {
-											"name": "HEIGHT"
-										},
-										"sink": {
-											"name": "HEIGHT"
-										}
-									},
-									{
-										"source": {
-											"name": "SPEED"
-										},
-										"sink": {
-											"name": "SPEED"
-										}
-									},
-									{
-										"source": {
-											"name": "DISTANCE"
-										},
-										"sink": {
-											"name": "DISTANCE"
-										}
-									},
-									{
-										"source": {
-											"name": "AOS"
-										},
-										"sink": {
-											"name": "AOS"
-										}
-									},
-									{
-										"source": {
-											"name": "COST_REPAIRS"
-										},
-										"sink": {
-											"name": "COST_REPAIRS"
-										}
-									},
-									{
-										"source": {
-											"name": "COST_OTHER"
-										},
-										"sink": {
-											"name": "COST_OTHER"
-										}
-									},
-									{
-										"source": {
-											"name": "COST_REPAIRS_INFL_ADJ"
-										},
-										"sink": {
-											"name": "COST_REPAIRS_INFL_ADJ"
-										}
-									},
-									{
-										"source": {
-											"name": "COST_OTHER_INFL_ADJ"
-										},
-										"sink": {
-											"name": "COST_OTHER_INFL_ADJ"
-										}
-									},
-									{
-										"source": {
-											"name": "NR_INJURIES"
-										},
-										"sink": {
-											"name": "NR_INJURIES"
-										}
-									},
-									{
-										"source": {
-											"name": "NR_FATALITIES"
-										},
-										"sink": {
-											"name": "NR_FATALITIES"
-										}
-									},
-									{
-										"source": {
-											"name": "INDICATED_DAMAGE"
-										},
-										"sink": {
-											"name": "INDICATED_DAMAGE"
-										}
-									},
-									{
-										"source": {
-											"name": "SPECIES"
-										},
-										"sink": {
-											"name": "SPECIES"
-										}
-									},
-									{
-										"source": {
-											"name": "WARNED"
-										},
-										"sink": {
-											"name": "WARNED"
-										}
-									}
-								]
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "DS_Silver_FAA_Source",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "DS_Staging_SQL",
-								"type": "DatasetReference",
-								"parameters": {
-									"tableName": "stg.FAA_Strikes"
-								}
-							}
-						]
 					},
 					{
 						"name": "Copy_Silver_OF_to_Staging",
@@ -939,124 +593,7 @@
 								"sqlWriterUseTableLock": false
 							},
 							"enableStaging": false,
-							"enableSkipIncompatibleRow": true,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"name": "Prop_0"
-										},
-										"sink": {
-											"name": "OF_ID"
-										}
-									},
-									{
-										"source": {
-											"name": "Prop_1"
-										},
-										"sink": {
-											"name": "Airport_Name"
-										}
-									},
-									{
-										"source": {
-											"name": "Prop_2"
-										},
-										"sink": {
-											"name": "City_Name"
-										}
-									},
-									{
-										"source": {
-											"name": "Prop_3"
-										},
-										"sink": {
-											"name": "Country"
-										}
-									},
-									{
-										"source": {
-											"name": "Prop_4"
-										},
-										"sink": {
-											"name": "IATA_Code"
-										}
-									},
-									{
-										"source": {
-											"name": "Prop_5"
-										},
-										"sink": {
-											"name": "ICAO_Code"
-										}
-									},
-									{
-										"source": {
-											"name": "Prop_6"
-										},
-										"sink": {
-											"name": "Latitude"
-										}
-									},
-									{
-										"source": {
-											"name": "Prop_7"
-										},
-										"sink": {
-											"name": "Longitude"
-										}
-									},
-									{
-										"source": {
-											"name": "Prop_8"
-										},
-										"sink": {
-											"name": "Altitude_FT"
-										}
-									},
-									{
-										"source": {
-											"name": "Prop_9"
-										},
-										"sink": {
-											"name": "TZ_Offset"
-										}
-									},
-									{
-										"source": {
-											"name": "Prop_10"
-										},
-										"sink": {
-											"name": "DST_Ind"
-										}
-									},
-									{
-										"source": {
-											"name": "Prop_11"
-										},
-										"sink": {
-											"name": "TZ_Name"
-										}
-									},
-									{
-										"source": {
-											"name": "Prop_12"
-										},
-										"sink": {
-											"name": "Airport_Type"
-										}
-									},
-									{
-										"source": {
-											"name": "Prop_13"
-										},
-										"sink": {
-											"name": "OF_Source"
-										}
-									}
-								]
-							}
+							"enableSkipIncompatibleRow": true
 						},
 						"inputs": [
 							{
@@ -1086,13 +623,13 @@
 								]
 							},
 							{
-								"activity": "Copy_Silver_FAA_to_Staging",
+								"activity": "Copy_Silver_OF_to_Staging",
 								"dependencyConditions": [
 									"Succeeded"
 								]
 							},
 							{
-								"activity": "Copy_Silver_OF_to_Staging",
+								"activity": "Copy_Silver_FAA_to_Staging",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -1121,6 +658,283 @@
 							"referenceName": "LS_SQL_Gold",
 							"type": "LinkedServiceReference"
 						}
+					},
+					{
+						"name": "Copy_Silver_FAA_to_Staging",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "SP_Truncate_Staging",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ParquetSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"wildcardFileName": "*.parquet",
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "ParquetReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "INDEX_NR",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "INDEX_NR"
+										}
+									},
+									{
+										"source": {
+											"name": "INCIDENT_DATE",
+											"type": "DateTime"
+										},
+										"sink": {
+											"name": "INCIDENT_DATE"
+										}
+									},
+									{
+										"source": {
+											"name": "TIME",
+											"type": "String"
+										},
+										"sink": {
+											"name": "TIME"
+										}
+									},
+									{
+										"source": {
+											"name": "AIRPORT_ID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "AIRPORT_ID"
+										}
+									},
+									{
+										"source": {
+											"name": "OPID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "OPID"
+										}
+									},
+									{
+										"source": {
+											"name": "REG",
+											"type": "String"
+										},
+										"sink": {
+											"name": "REG"
+										}
+									},
+									{
+										"source": {
+											"name": "AMA",
+											"type": "String"
+										},
+										"sink": {
+											"name": "AMA"
+										}
+									},
+									{
+										"source": {
+											"name": "AMO",
+											"type": "String"
+										},
+										"sink": {
+											"name": "AMO"
+										}
+									},
+									{
+										"source": {
+											"name": "AC_CLASS",
+											"type": "String"
+										},
+										"sink": {
+											"name": "AC_CLASS"
+										}
+									},
+									{
+										"source": {
+											"name": "AC_MASS",
+											"type": "Int16"
+										},
+										"sink": {
+											"name": "AC_MASS"
+										}
+									},
+									{
+										"source": {
+											"name": "TYPE_ENG",
+											"type": "String"
+										},
+										"sink": {
+											"name": "TYPE_ENG"
+										}
+									},
+									{
+										"source": {
+											"name": "NUM_ENGS",
+											"type": "Int16"
+										},
+										"sink": {
+											"name": "NUM_ENGS"
+										}
+									},
+									{
+										"source": {
+											"name": "PHASE_OF_FLIGHT",
+											"type": "String"
+										},
+										"sink": {
+											"name": "PHASE_OF_FLIGHT"
+										}
+									},
+									{
+										"source": {
+											"name": "DISTANCE",
+											"type": "Double"
+										},
+										"sink": {
+											"name": "DISTANCE"
+										}
+									},
+									{
+										"source": {
+											"name": "AOS",
+											"type": "Int16"
+										},
+										"sink": {
+											"name": "AOS"
+										}
+									},
+									{
+										"source": {
+											"name": "INDICATED_DAMAGE",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "INDICATED_DAMAGE"
+										}
+									},
+									{
+										"source": {
+											"name": "DAMAGE_LEVEL",
+											"type": "String"
+										},
+										"sink": {
+											"name": "DAMAGE_LEVEL"
+										}
+									},
+									{
+										"source": {
+											"name": "NUM_STRUCK",
+											"type": "String"
+										},
+										"sink": {
+											"name": "NUM_STRUCK"
+										}
+									},
+									{
+										"source": {
+											"name": "SIZE",
+											"type": "String"
+										},
+										"sink": {
+											"name": "SIZE"
+										}
+									},
+									{
+										"source": {
+											"name": "NR_INJURIES",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "NR_INJURIES"
+										}
+									},
+									{
+										"source": {
+											"name": "NR_FATALITIES",
+											"type": "String"
+										},
+										"sink": {
+											"name": "NR_FATALITIES"
+										}
+									},
+									{
+										"source": {
+											"name": "NUM_SEEN",
+											"type": "String"
+										},
+										"sink": {
+											"name": "NUM_SEEN"
+										}
+									},
+									{
+										"source": {
+											"name": "EFFECT",
+											"type": "String"
+										},
+										"sink": {
+											"name": "EFFECT"
+										}
+									},
+									{
+										"source": {
+											"name": "SPECIES",
+											"type": "String"
+										},
+										"sink": {
+											"name": "SPECIES"
+										}
+									}
+								]
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_Silver_FAA",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_Staging_SQL",
+								"type": "DatasetReference",
+								"parameters": {
+									"tableName": "stg.FAA_Strikes"
+								}
+							}
+						]
 					}
 				],
 				"policy": {
@@ -1131,9 +945,9 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_SQL_Gold')]",
-				"[concat(variables('factoryId'), '/datasets/DS_Silver_FAA_Source')]",
-				"[concat(variables('factoryId'), '/datasets/DS_Staging_SQL')]",
 				"[concat(variables('factoryId'), '/datasets/DS_Silver_OF_Source')]",
+				"[concat(variables('factoryId'), '/datasets/DS_Staging_SQL')]",
+				"[concat(variables('factoryId'), '/datasets/DS_Silver_FAA')]",
 				"[concat(variables('factoryId'), '/datasets/DS_Silver_BTS')]",
 				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS_Bronze')]"
 			]
@@ -1432,7 +1246,140 @@
 					},
 					"compressionCodec": "snappy"
 				},
-				"schema": []
+				"schema": [
+					{
+						"name": "FL_DATE",
+						"type": "DATE"
+					},
+					{
+						"name": "OP_UNIQUE_CARRIER",
+						"type": "UTF8"
+					},
+					{
+						"name": "OP_CARRIER_AIRLINE_ID",
+						"type": "INT_16"
+					},
+					{
+						"name": "OP_CARRIER",
+						"type": "UTF8"
+					},
+					{
+						"name": "TAIL_NUM",
+						"type": "UTF8"
+					},
+					{
+						"name": "OP_CARRIER_FL_NUM",
+						"type": "INT_16"
+					},
+					{
+						"name": "ORIGIN_AIRPORT_SEQ_ID",
+						"type": "INT32"
+					},
+					{
+						"name": "ORIGIN",
+						"type": "UTF8"
+					},
+					{
+						"name": "DEST_AIRPORT_SEQ_ID",
+						"type": "INT32"
+					},
+					{
+						"name": "DEST",
+						"type": "UTF8"
+					},
+					{
+						"name": "CRS_DEP_TIME",
+						"type": "INT_16"
+					},
+					{
+						"name": "DEP_TIME",
+						"type": "INT_16"
+					},
+					{
+						"name": "DEP_DELAY",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "DEP_DELAY_NEW",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "DEP_DEL15",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "CRS_ARR_TIME",
+						"type": "INT_16"
+					},
+					{
+						"name": "ARR_TIME",
+						"type": "INT_16"
+					},
+					{
+						"name": "ARR_DELAY",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "ARR_DELAY_NEW",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "ARR_DEL15",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "CANCELLED",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "CANCELLATION_CODE",
+						"type": "UTF8"
+					},
+					{
+						"name": "DIVERTED",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "FLIGHTS",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "DISTANCE",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "CARRIER_DELAY",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "WEATHER_DELAY",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "NAS_DELAY",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "SECURITY_DELAY",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "LATE_AIRCRAFT_DELAY",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "Load_Date",
+						"type": "INT96"
+					},
+					{
+						"name": "ETL_Batch_ID",
+						"type": "UTF8"
+					},
+					{
+						"name": "Record_Source",
+						"type": "UTF8"
+					}
+				]
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS_Bronze')]"
@@ -1477,12 +1424,122 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": "*.parquet",
 						"folderPath": "faa",
 						"fileSystem": "silver"
 					},
 					"compressionCodec": "snappy"
 				},
-				"schema": []
+				"schema": [
+					{
+						"name": "INDEX_NR",
+						"type": "INT32"
+					},
+					{
+						"name": "INCIDENT_DATE",
+						"type": "DATE"
+					},
+					{
+						"name": "TIME",
+						"type": "UTF8"
+					},
+					{
+						"name": "AIRPORT_ID",
+						"type": "UTF8"
+					},
+					{
+						"name": "OPID",
+						"type": "UTF8"
+					},
+					{
+						"name": "REG",
+						"type": "UTF8"
+					},
+					{
+						"name": "AMA",
+						"type": "UTF8"
+					},
+					{
+						"name": "AMO",
+						"type": "UTF8"
+					},
+					{
+						"name": "AC_CLASS",
+						"type": "UTF8"
+					},
+					{
+						"name": "AC_MASS",
+						"type": "INT_16"
+					},
+					{
+						"name": "TYPE_ENG",
+						"type": "UTF8"
+					},
+					{
+						"name": "NUM_ENGS",
+						"type": "INT_16"
+					},
+					{
+						"name": "PHASE_OF_FLIGHT",
+						"type": "UTF8"
+					},
+					{
+						"name": "DISTANCE",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "AOS",
+						"type": "INT_16"
+					},
+					{
+						"name": "INDICATED_DAMAGE",
+						"type": "BOOLEAN"
+					},
+					{
+						"name": "DAMAGE_LEVEL",
+						"type": "UTF8"
+					},
+					{
+						"name": "NUM_STRUCK",
+						"type": "UTF8"
+					},
+					{
+						"name": "SIZE",
+						"type": "UTF8"
+					},
+					{
+						"name": "NR_INJURIES",
+						"type": "BOOLEAN"
+					},
+					{
+						"name": "NR_FATALITIES",
+						"type": "UTF8"
+					},
+					{
+						"name": "NUM_SEEN",
+						"type": "UTF8"
+					},
+					{
+						"name": "EFFECT",
+						"type": "UTF8"
+					},
+					{
+						"name": "SPECIES",
+						"type": "UTF8"
+					},
+					{
+						"name": "Load_Date",
+						"type": "INT96"
+					},
+					{
+						"name": "ETL_Batch_ID",
+						"type": "UTF8"
+					},
+					{
+						"name": "Record_Source",
+						"type": "UTF8"
+					}
+				]
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS_Bronze')]"
@@ -1532,7 +1589,56 @@
 					},
 					"compressionCodec": "snappy"
 				},
-				"schema": []
+				"schema": [
+					{
+						"name": "Name",
+						"type": "UTF8"
+					},
+					{
+						"name": "City",
+						"type": "UTF8"
+					},
+					{
+						"name": "Country",
+						"type": "UTF8"
+					},
+					{
+						"name": "IATA",
+						"type": "UTF8"
+					},
+					{
+						"name": "ICAO",
+						"type": "UTF8"
+					},
+					{
+						"name": "Latitude",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "Longitude",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "Timezone",
+						"type": "DOUBLE"
+					},
+					{
+						"name": "Tz_Database_Timezone",
+						"type": "UTF8"
+					},
+					{
+						"name": "Load_Date",
+						"type": "INT96"
+					},
+					{
+						"name": "ETL_Batch_ID",
+						"type": "UTF8"
+					},
+					{
+						"name": "Record_Source",
+						"type": "UTF8"
+					}
+				]
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS_Bronze')]"
@@ -1557,7 +1663,64 @@
 					},
 					"compressionCodec": "snappy"
 				},
-				"schema": []
+				"schema": [
+					{
+						"name": "Prop_0",
+						"type": "UTF8"
+					},
+					{
+						"name": "Prop_1",
+						"type": "UTF8"
+					},
+					{
+						"name": "Prop_2",
+						"type": "UTF8"
+					},
+					{
+						"name": "Prop_3",
+						"type": "UTF8"
+					},
+					{
+						"name": "Prop_4",
+						"type": "UTF8"
+					},
+					{
+						"name": "Prop_5",
+						"type": "UTF8"
+					},
+					{
+						"name": "Prop_6",
+						"type": "UTF8"
+					},
+					{
+						"name": "Prop_7",
+						"type": "UTF8"
+					},
+					{
+						"name": "Prop_8",
+						"type": "UTF8"
+					},
+					{
+						"name": "Prop_9",
+						"type": "UTF8"
+					},
+					{
+						"name": "Prop_10",
+						"type": "UTF8"
+					},
+					{
+						"name": "Prop_11",
+						"type": "UTF8"
+					},
+					{
+						"name": "Prop_12",
+						"type": "UTF8"
+					},
+					{
+						"name": "Prop_13",
+						"type": "UTF8"
+					}
+				]
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS_Bronze')]"
@@ -1918,6 +2081,41 @@
 						"          Record_Source = 'BTS') ~> AddAudit",
 						"AddAudit sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
+						"     input(",
+						"          FL_DATE as date,",
+						"          OP_UNIQUE_CARRIER as string,",
+						"          OP_CARRIER_AIRLINE_ID as short,",
+						"          OP_CARRIER as string,",
+						"          TAIL_NUM as string,",
+						"          OP_CARRIER_FL_NUM as short,",
+						"          ORIGIN_AIRPORT_SEQ_ID as integer,",
+						"          ORIGIN as string,",
+						"          DEST_AIRPORT_SEQ_ID as integer,",
+						"          DEST as string,",
+						"          CRS_DEP_TIME as short,",
+						"          DEP_TIME as short,",
+						"          DEP_DELAY as double,",
+						"          DEP_DELAY_NEW as double,",
+						"          DEP_DEL15 as double,",
+						"          CRS_ARR_TIME as short,",
+						"          ARR_TIME as short,",
+						"          ARR_DELAY as double,",
+						"          ARR_DELAY_NEW as double,",
+						"          ARR_DEL15 as double,",
+						"          CANCELLED as double,",
+						"          CANCELLATION_CODE as string,",
+						"          DIVERTED as double,",
+						"          FLIGHTS as double,",
+						"          DISTANCE as double,",
+						"          CARRIER_DELAY as double,",
+						"          WEATHER_DELAY as double,",
+						"          NAS_DELAY as double,",
+						"          SECURITY_DELAY as double,",
+						"          LATE_AIRCRAFT_DELAY as double,",
+						"          Load_Date as timestamp,",
+						"          ETL_Batch_ID as string,",
+						"          Record_Source as string",
+						"     ),",
 						"     format: 'parquet',",
 						"     truncate: true,",
 						"     umask: 0022,",
@@ -2112,7 +2310,9 @@
 						"          SIZE,",
 						"          NR_INJURIES,",
 						"          NR_FATALITIES,",
-						"          NUM_SEEN",
+						"          NUM_SEEN,",
+						"          EFFECT,",
+						"          SPECIES",
 						"     ),",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true) ~> SelectFAAColumns",
@@ -2121,7 +2321,37 @@
 						"          Record_Source = 'FAA') ~> AddAudit",
 						"AddAudit sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
+						"     input(",
+						"          INDEX_NR as integer,",
+						"          INCIDENT_DATE as date,",
+						"          TIME as string,",
+						"          AIRPORT_ID as string,",
+						"          OPID as string,",
+						"          REG as string,",
+						"          AMA as string,",
+						"          AMO as string,",
+						"          AC_CLASS as string,",
+						"          AC_MASS as short,",
+						"          TYPE_ENG as string,",
+						"          NUM_ENGS as short,",
+						"          PHASE_OF_FLIGHT as string,",
+						"          DISTANCE as double,",
+						"          AOS as short,",
+						"          INDICATED_DAMAGE as boolean,",
+						"          DAMAGE_LEVEL as string,",
+						"          NUM_STRUCK as string,",
+						"          SIZE as string,",
+						"          NR_INJURIES as boolean,",
+						"          NR_FATALITIES as string,",
+						"          NUM_SEEN as string,",
+						"          EFFECT as string,",
+						"          SPECIES as string,",
+						"          Load_Date as timestamp,",
+						"          ETL_Batch_ID as string,",
+						"          Record_Source as string",
+						"     ),",
 						"     format: 'parquet',",
+						"     truncate: true,",
 						"     umask: 0022,",
 						"     preCommands: [],",
 						"     postCommands: [],",
@@ -2215,7 +2445,22 @@
 						"          Record_Source = 'OpenFlights') ~> AddAudit",
 						"AddAudit sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
+						"     input(",
+						"          Name as string,",
+						"          City as string,",
+						"          Country as string,",
+						"          IATA as string,",
+						"          ICAO as string,",
+						"          Latitude as double,",
+						"          Longitude as double,",
+						"          Timezone as double,",
+						"          Tz_Database_Timezone as string,",
+						"          Load_Date as timestamp,",
+						"          ETL_Batch_ID as string,",
+						"          Record_Source as string",
+						"     ),",
 						"     format: 'parquet',",
+						"     truncate: true,",
 						"     umask: 0022,",
 						"     preCommands: [],",
 						"     postCommands: [],",
