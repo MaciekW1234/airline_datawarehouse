@@ -1,0 +1,122 @@
+{
+	"name": "DS_Gold_SQL",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQL_Gold",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"tableName": {
+				"type": "String"
+			},
+			"schemaName": {
+				"type": "String",
+				"defaultValue": "gold"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"structure": [
+			{
+				"name": "Strike_SK",
+				"type": "Int32"
+			},
+			{
+				"name": "Strike_Source_ID",
+				"type": "String"
+			},
+			{
+				"name": "Incident_Date_SK",
+				"type": "Int32"
+			},
+			{
+				"name": "Incident_Time_SK",
+				"type": "Int16"
+			},
+			{
+				"name": "Airport_SK",
+				"type": "Int32"
+			},
+			{
+				"name": "Aircraft_SK",
+				"type": "Int32"
+			},
+			{
+				"name": "Carrier_SK",
+				"type": "Int32"
+			},
+			{
+				"name": "Phase_SK",
+				"type": "Int16"
+			},
+			{
+				"name": "Damage_SK",
+				"type": "Int16"
+			},
+			{
+				"name": "Species_Name",
+				"type": "String"
+			},
+			{
+				"name": "Bird_Size",
+				"type": "String"
+			},
+			{
+				"name": "Effect",
+				"type": "String"
+			},
+			{
+				"name": "Birds_Struck",
+				"type": "Int32"
+			},
+			{
+				"name": "Birds_Struck_Is_Estimate",
+				"type": "Boolean"
+			},
+			{
+				"name": "Birds_Seen",
+				"type": "Int32"
+			},
+			{
+				"name": "Distance_NM",
+				"type": "Decimal"
+			},
+			{
+				"name": "Aircraft_Out_Of_Service_Hrs",
+				"type": "Decimal"
+			},
+			{
+				"name": "Num_Injuries",
+				"type": "Int32"
+			},
+			{
+				"name": "Num_Fatalities",
+				"type": "Int32"
+			},
+			{
+				"name": "Has_Damage",
+				"type": "Boolean"
+			},
+			{
+				"name": "Strike_Count",
+				"type": "Byte"
+			},
+			{
+				"name": "Record_Source",
+				"type": "String"
+			},
+			{
+				"name": "Load_Date",
+				"type": "DateTime"
+			},
+			{
+				"name": "ETL_Batch_ID",
+				"type": "Int64"
+			}
+		],
+		"typeProperties": {
+			"tableName": "[gold].[Dim_Airport]"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

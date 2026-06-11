@@ -1,0 +1,15 @@
+{
+	"name": "df-dwh-aviation-dev",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "polandcentral",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "662ad423-4fbc-4a31-be95-6c73fc9d5ebc",
+		"tenantId": "3b50229c-cd78-4588-9bcf-97b7629e2f0f"
+	}
+}

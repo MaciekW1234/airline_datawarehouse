@@ -1,0 +1,14 @@
+{
+	"name": "LS_ADLS_Bronze",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://stdwhaviationdev.dfs.core.windows.net",
+			"credential": {
+				"type": "ManagedIdentity"
+			}
+		},
+		"annotations": []
+	}
+}

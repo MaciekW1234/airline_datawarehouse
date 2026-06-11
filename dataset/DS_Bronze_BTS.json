@@ -1,0 +1,35 @@
+{
+	"name": "DS_Bronze_BTS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS_Bronze",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"fileName": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().fileName",
+					"type": "Expression"
+				},
+				"folderPath": "bts/2025",
+				"fileSystem": "bronze"
+			},
+			"columnDelimiter": ",",
+			"rowDelimiter": "\n",
+			"encodingName": "UTF-8",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

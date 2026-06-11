@@ -1,0 +1,27 @@
+{
+	"name": "DS_Bronze_OF",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS_Bronze",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "airports.csv",
+				"folderPath": "openflights",
+				"fileSystem": "bronze"
+			},
+			"columnDelimiter": ",",
+			"rowDelimiter": "\n",
+			"encodingName": "UTF-8",
+			"escapeChar": "\\",
+			"firstRowAsHeader": false,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

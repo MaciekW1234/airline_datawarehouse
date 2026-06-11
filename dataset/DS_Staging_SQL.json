@@ -1,0 +1,23 @@
+{
+	"name": "DS_Staging_SQL",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQL_Gold",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"tableName": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"typeProperties": {
+			"tableName": {
+				"value": "@dataset().tableName",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
