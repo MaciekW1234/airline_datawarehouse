@@ -1,0 +1,1965 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "df-dwh-aviation-dev"
+		},
+		"LS_ADLS_Bronze_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_ADLS_Bronze'"
+		},
+		"LS_SQL_Gold_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_SQL_Gold'"
+		},
+		"LS_ADLS_Bronze_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://stdwhaviationdev.dfs.core.windows.net"
+		},
+		"Trigger_BTS_Upload_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/5c01aa12-dd53-4da6-ac9b-2cedc706e93e/resourceGroups/rg-dwh-aviation-dev/providers/Microsoft.Storage/storageAccounts/stdwhaviationdev"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_ADLS_Bronze')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobFS",
+				"typeProperties": {
+					"url": "[parameters('LS_ADLS_Bronze_properties_typeProperties_url')]",
+					"accountKey": {
+						"type": "SecureString",
+						"value": "[parameters('LS_ADLS_Bronze_accountKey')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_SQL_Gold')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('LS_SQL_Gold_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_Bronze_BTS')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_ADLS_Bronze",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"fileName": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().fileName",
+							"type": "Expression"
+						},
+						"folderPath": "bts/2025",
+						"fileSystem": "bronze"
+					},
+					"columnDelimiter": ",",
+					"rowDelimiter": "\n",
+					"encodingName": "UTF-8",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS_Bronze')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_Bronze_BTS_CSV')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_ADLS_Bronze",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"monthFolder": {
+						"type": "string",
+						"defaultValue": "'Apr2025'"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": {
+							"value": "@concat('bts/2025/', dataset().monthFolder)",
+							"type": "Expression"
+						},
+						"fileSystem": "bronze"
+					},
+					"columnDelimiter": ",",
+					"rowDelimiter": "\n",
+					"encodingName": "UTF-8",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS_Bronze')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_Bronze_FAA')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_ADLS_Bronze",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "NWSD.csv",
+						"folderPath": "faa",
+						"fileSystem": "bronze"
+					},
+					"columnDelimiter": ",",
+					"rowDelimiter": "\n",
+					"encodingName": "UTF-8",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS_Bronze')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_Bronze_OF')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_ADLS_Bronze",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "airports.csv",
+						"folderPath": "openflights",
+						"fileSystem": "bronze"
+					},
+					"columnDelimiter": ",",
+					"rowDelimiter": "\n",
+					"encodingName": "UTF-8",
+					"escapeChar": "\\",
+					"firstRowAsHeader": false,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS_Bronze')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_Gold_SQL')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_SQL_Gold",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"tableName": {
+						"type": "String"
+					},
+					"schemaName": {
+						"type": "String",
+						"defaultValue": "gold"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"structure": [
+					{
+						"name": "Strike_SK",
+						"type": "Int32"
+					},
+					{
+						"name": "Strike_Source_ID",
+						"type": "String"
+					},
+					{
+						"name": "Incident_Date_SK",
+						"type": "Int32"
+					},
+					{
+						"name": "Incident_Time_SK",
+						"type": "Int16"
+					},
+					{
+						"name": "Airport_SK",
+						"type": "Int32"
+					},
+					{
+						"name": "Aircraft_SK",
+						"type": "Int32"
+					},
+					{
+						"name": "Carrier_SK",
+						"type": "Int32"
+					},
+					{
+						"name": "Phase_SK",
+						"type": "Int16"
+					},
+					{
+						"name": "Damage_SK",
+						"type": "Int16"
+					},
+					{
+						"name": "Species_Name",
+						"type": "String"
+					},
+					{
+						"name": "Bird_Size",
+						"type": "String"
+					},
+					{
+						"name": "Effect",
+						"type": "String"
+					},
+					{
+						"name": "Birds_Struck",
+						"type": "Int32"
+					},
+					{
+						"name": "Birds_Struck_Is_Estimate",
+						"type": "Boolean"
+					},
+					{
+						"name": "Birds_Seen",
+						"type": "Int32"
+					},
+					{
+						"name": "Distance_NM",
+						"type": "Decimal"
+					},
+					{
+						"name": "Aircraft_Out_Of_Service_Hrs",
+						"type": "Decimal"
+					},
+					{
+						"name": "Num_Injuries",
+						"type": "Int32"
+					},
+					{
+						"name": "Num_Fatalities",
+						"type": "Int32"
+					},
+					{
+						"name": "Has_Damage",
+						"type": "Boolean"
+					},
+					{
+						"name": "Strike_Count",
+						"type": "Byte"
+					},
+					{
+						"name": "Record_Source",
+						"type": "String"
+					},
+					{
+						"name": "Load_Date",
+						"type": "DateTime"
+					},
+					{
+						"name": "ETL_Batch_ID",
+						"type": "Int64"
+					}
+				],
+				"typeProperties": {
+					"tableName": "[[gold].[Dim_Airport]"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_SQL_Gold')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_Silver_BTS')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_ADLS_Bronze",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"monthFolder": {
+						"type": "String",
+						"defaultValue": "Apr2025"
+					}
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": {
+							"value": "@concat('bts/2025/', dataset().monthFolder)",
+							"type": "Expression"
+						},
+						"fileSystem": "silver"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS_Bronze')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_Silver_BTS_Source')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_ADLS_Bronze",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "bts/2025",
+						"fileSystem": "silver"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS_Bronze')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_Silver_FAA')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_ADLS_Bronze",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "faa",
+						"fileSystem": "silver"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS_Bronze')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_Silver_FAA_Source')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_ADLS_Bronze",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "faa",
+						"fileSystem": "silver"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS_Bronze')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_Silver_OF')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_ADLS_Bronze",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "openflights",
+						"fileSystem": "silver"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS_Bronze')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_Silver_OF_Source')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_ADLS_Bronze",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "openflights",
+						"fileSystem": "silver"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS_Bronze')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_Staging_SQL')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_SQL_Gold",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"tableName": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"typeProperties": {
+					"tableName": {
+						"value": "@dataset().tableName",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_SQL_Gold')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Bronze_to_Silver_BTS')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "ForEach_Month",
+						"type": "ForEach",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@createArray('Dec2025')",
+								"type": "Expression"
+							},
+							"isSequential": false,
+							"batchCount": 4,
+							"activities": [
+								{
+									"name": "Copy_BTS_CSV_to_Silver",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "DelimitedTextSource",
+											"storeSettings": {
+												"type": "AzureBlobFSReadSettings",
+												"recursive": false,
+												"wildcardFileName": "*.csv",
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "DelimitedTextReadSettings"
+											}
+										},
+										"sink": {
+											"type": "ParquetSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "ParquetWriteSettings"
+											}
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "DS_Bronze_BTS_CSV",
+											"type": "DatasetReference",
+											"parameters": {
+												"monthFolder": {
+													"value": "@item()",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "DS_Silver_BTS",
+											"type": "DatasetReference",
+											"parameters": {
+												"monthFolder": {
+													"value": "@item()",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2026-06-09T19:28:50Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_Bronze_BTS_CSV')]",
+				"[concat(variables('factoryId'), '/datasets/DS_Silver_BTS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Bronze_to_Silver_FAA')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy_FAA_to_Silver",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"enableSkipIncompatibleRow": true,
+							"redirectIncompatibleRowSettings": {
+								"linkedServiceName": {
+									"referenceName": "LS_ADLS_Bronze",
+									"type": "LinkedServiceReference"
+								},
+								"path": "quarantine/faa"
+							},
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_Bronze_FAA",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_Silver_FAA",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2026-05-10T21:10:24Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_Bronze_FAA')]",
+				"[concat(variables('factoryId'), '/datasets/DS_Silver_FAA')]",
+				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS_Bronze')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Bronze_to_Silver_OF')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy_OF_to_Silver",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "ParquetSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "ParquetWriteSettings"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_Bronze_OF",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_Silver_OF",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2026-05-10T20:39:11Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_Bronze_OF')]",
+				"[concat(variables('factoryId'), '/datasets/DS_Silver_OF')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Silver_to_Gold')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "SP_Truncate_Staging",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.00:10:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[silver].[sp_Truncate_Staging]"
+						},
+						"linkedServiceName": {
+							"referenceName": "LS_SQL_Gold",
+							"type": "LinkedServiceReference"
+						}
+					},
+					{
+						"name": "ForEach_BTS_Months",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "SP_Truncate_Staging",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@createArray('Dec2025')",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Copy_BTS_Month",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.04:00:00",
+										"retry": 1,
+										"retryIntervalInSeconds": 60,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "ParquetSource",
+											"storeSettings": {
+												"type": "AzureBlobFSReadSettings",
+												"recursive": false,
+												"wildcardFileName": "*.parquet",
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "ParquetReadSettings"
+											}
+										},
+										"sink": {
+											"type": "AzureSqlSink",
+											"writeBehavior": "insert",
+											"sqlWriterUseTableLock": false
+										},
+										"enableStaging": false,
+										"enableSkipIncompatibleRow": true,
+										"redirectIncompatibleRowSettings": {
+											"linkedServiceName": {
+												"referenceName": "LS_ADLS_Bronze",
+												"type": "LinkedServiceReference"
+											},
+											"path": "quarantine/bts"
+										},
+										"translator": {
+											"type": "TabularTranslator",
+											"mappings": [
+												{
+													"source": {
+														"name": "FL_DATE"
+													},
+													"sink": {
+														"name": "FL_DATE"
+													}
+												},
+												{
+													"source": {
+														"name": "OP_UNIQUE_CARRIER"
+													},
+													"sink": {
+														"name": "OP_UNIQUE_CARRIER"
+													}
+												},
+												{
+													"source": {
+														"name": "OP_CARRIER_AIRLINE_ID"
+													},
+													"sink": {
+														"name": "OP_CARRIER_AIRLINE_ID"
+													}
+												},
+												{
+													"source": {
+														"name": "OP_CARRIER"
+													},
+													"sink": {
+														"name": "OP_CARRIER"
+													}
+												},
+												{
+													"source": {
+														"name": "TAIL_NUM"
+													},
+													"sink": {
+														"name": "TAIL_NUM"
+													}
+												},
+												{
+													"source": {
+														"name": "OP_CARRIER_FL_NUM"
+													},
+													"sink": {
+														"name": "OP_CARRIER_FL_NUM"
+													}
+												},
+												{
+													"source": {
+														"name": "ORIGIN_AIRPORT_SEQ_ID"
+													},
+													"sink": {
+														"name": "ORIGIN_AIRPORT_SEQ_ID"
+													}
+												},
+												{
+													"source": {
+														"name": "ORIGIN_CITY_MARKET_ID"
+													},
+													"sink": {
+														"name": "ORIGIN_CITY_MARKET_ID"
+													}
+												},
+												{
+													"source": {
+														"name": "ORIGIN"
+													},
+													"sink": {
+														"name": "ORIGIN"
+													}
+												},
+												{
+													"source": {
+														"name": "DEST_AIRPORT_SEQ_ID"
+													},
+													"sink": {
+														"name": "DEST_AIRPORT_SEQ_ID"
+													}
+												},
+												{
+													"source": {
+														"name": "DEST_CITY_MARKET_ID"
+													},
+													"sink": {
+														"name": "DEST_CITY_MARKET_ID"
+													}
+												},
+												{
+													"source": {
+														"name": "DEST"
+													},
+													"sink": {
+														"name": "DEST"
+													}
+												},
+												{
+													"source": {
+														"name": "CRS_DEP_TIME"
+													},
+													"sink": {
+														"name": "CRS_DEP_TIME"
+													}
+												},
+												{
+													"source": {
+														"name": "DEP_TIME"
+													},
+													"sink": {
+														"name": "DEP_TIME"
+													}
+												},
+												{
+													"source": {
+														"name": "DEP_DELAY"
+													},
+													"sink": {
+														"name": "DEP_DELAY"
+													}
+												},
+												{
+													"source": {
+														"name": "DEP_DEL15"
+													},
+													"sink": {
+														"name": "DEP_DEL15"
+													}
+												},
+												{
+													"source": {
+														"name": "TAXI_OUT"
+													},
+													"sink": {
+														"name": "TAXI_OUT"
+													}
+												},
+												{
+													"source": {
+														"name": "TAXI_IN"
+													},
+													"sink": {
+														"name": "TAXI_IN"
+													}
+												},
+												{
+													"source": {
+														"name": "CRS_ARR_TIME"
+													},
+													"sink": {
+														"name": "CRS_ARR_TIME"
+													}
+												},
+												{
+													"source": {
+														"name": "ARR_TIME"
+													},
+													"sink": {
+														"name": "ARR_TIME"
+													}
+												},
+												{
+													"source": {
+														"name": "ARR_DELAY"
+													},
+													"sink": {
+														"name": "ARR_DELAY"
+													}
+												},
+												{
+													"source": {
+														"name": "ARR_DEL15"
+													},
+													"sink": {
+														"name": "ARR_DEL15"
+													}
+												},
+												{
+													"source": {
+														"name": "CANCELLED"
+													},
+													"sink": {
+														"name": "CANCELLED"
+													}
+												},
+												{
+													"source": {
+														"name": "CANCELLATION_CODE"
+													},
+													"sink": {
+														"name": "CANCELLATION_CODE"
+													}
+												},
+												{
+													"source": {
+														"name": "DIVERTED"
+													},
+													"sink": {
+														"name": "DIVERTED"
+													}
+												},
+												{
+													"source": {
+														"name": "CRS_ELAPSED_TIME"
+													},
+													"sink": {
+														"name": "CRS_ELAPSED_TIME"
+													}
+												},
+												{
+													"source": {
+														"name": "ACTUAL_ELAPSED_TIME"
+													},
+													"sink": {
+														"name": "ACTUAL_ELAPSED_TIME"
+													}
+												},
+												{
+													"source": {
+														"name": "AIR_TIME"
+													},
+													"sink": {
+														"name": "AIR_TIME"
+													}
+												},
+												{
+													"source": {
+														"name": "DISTANCE"
+													},
+													"sink": {
+														"name": "DISTANCE"
+													}
+												},
+												{
+													"source": {
+														"name": "CARRIER_DELAY"
+													},
+													"sink": {
+														"name": "CARRIER_DELAY"
+													}
+												},
+												{
+													"source": {
+														"name": "WEATHER_DELAY"
+													},
+													"sink": {
+														"name": "WEATHER_DELAY"
+													}
+												},
+												{
+													"source": {
+														"name": "NAS_DELAY"
+													},
+													"sink": {
+														"name": "NAS_DELAY"
+													}
+												},
+												{
+													"source": {
+														"name": "SECURITY_DELAY"
+													},
+													"sink": {
+														"name": "SECURITY_DELAY"
+													}
+												},
+												{
+													"source": {
+														"name": "LATE_AIRCRAFT_DELAY"
+													},
+													"sink": {
+														"name": "LATE_AIRCRAFT_DELAY"
+													}
+												}
+											]
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "DS_Silver_BTS",
+											"type": "DatasetReference",
+											"parameters": {
+												"monthFolder": {
+													"value": "@item()",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "DS_Staging_SQL",
+											"type": "DatasetReference",
+											"parameters": {
+												"tableName": "stg.BTS_Flights"
+											}
+										}
+									]
+								}
+							]
+						}
+					},
+					{
+						"name": "Copy_Silver_FAA_to_Staging",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "SP_Truncate_Staging",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ParquetSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"wildcardFileName": "*.parquet",
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "ParquetReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false
+							},
+							"enableStaging": false,
+							"enableSkipIncompatibleRow": true,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "INDEX_NR"
+										},
+										"sink": {
+											"name": "INDEX_NR"
+										}
+									},
+									{
+										"source": {
+											"name": "INCIDENT_DATE"
+										},
+										"sink": {
+											"name": "INCIDENT_DATE"
+										}
+									},
+									{
+										"source": {
+											"name": "TIME"
+										},
+										"sink": {
+											"name": "TIME"
+										}
+									},
+									{
+										"source": {
+											"name": "AIRPORT_ID"
+										},
+										"sink": {
+											"name": "AIRPORT_ID"
+										}
+									},
+									{
+										"source": {
+											"name": "AIRPORT"
+										},
+										"sink": {
+											"name": "AIRPORT"
+										}
+									},
+									{
+										"source": {
+											"name": "OPID"
+										},
+										"sink": {
+											"name": "OPID"
+										}
+									},
+									{
+										"source": {
+											"name": "REG"
+										},
+										"sink": {
+											"name": "REG"
+										}
+									},
+									{
+										"source": {
+											"name": "PHASE_OF_FLIGHT"
+										},
+										"sink": {
+											"name": "PHASE_OF_FLIGHT"
+										}
+									},
+									{
+										"source": {
+											"name": "DAMAGE_LEVEL"
+										},
+										"sink": {
+											"name": "DAMAGE_LEVEL"
+										}
+									},
+									{
+										"source": {
+											"name": "NUM_STRUCK"
+										},
+										"sink": {
+											"name": "NUM_STRUCK"
+										}
+									},
+									{
+										"source": {
+											"name": "NUM_SEEN"
+										},
+										"sink": {
+											"name": "NUM_SEEN"
+										}
+									},
+									{
+										"source": {
+											"name": "SIZE"
+										},
+										"sink": {
+											"name": "SIZE"
+										}
+									},
+									{
+										"source": {
+											"name": "EFFECT"
+										},
+										"sink": {
+											"name": "EFFECT"
+										}
+									},
+									{
+										"source": {
+											"name": "AMA"
+										},
+										"sink": {
+											"name": "AMA"
+										}
+									},
+									{
+										"source": {
+											"name": "AMO"
+										},
+										"sink": {
+											"name": "AMO"
+										}
+									},
+									{
+										"source": {
+											"name": "AC_CLASS"
+										},
+										"sink": {
+											"name": "AC_CLASS"
+										}
+									},
+									{
+										"source": {
+											"name": "AC_MASS"
+										},
+										"sink": {
+											"name": "AC_MASS"
+										}
+									},
+									{
+										"source": {
+											"name": "TYPE_ENG"
+										},
+										"sink": {
+											"name": "TYPE_ENG"
+										}
+									},
+									{
+										"source": {
+											"name": "NUM_ENGS"
+										},
+										"sink": {
+											"name": "NUM_ENGS"
+										}
+									},
+									{
+										"source": {
+											"name": "HEIGHT"
+										},
+										"sink": {
+											"name": "HEIGHT"
+										}
+									},
+									{
+										"source": {
+											"name": "SPEED"
+										},
+										"sink": {
+											"name": "SPEED"
+										}
+									},
+									{
+										"source": {
+											"name": "DISTANCE"
+										},
+										"sink": {
+											"name": "DISTANCE"
+										}
+									},
+									{
+										"source": {
+											"name": "AOS"
+										},
+										"sink": {
+											"name": "AOS"
+										}
+									},
+									{
+										"source": {
+											"name": "COST_REPAIRS"
+										},
+										"sink": {
+											"name": "COST_REPAIRS"
+										}
+									},
+									{
+										"source": {
+											"name": "COST_OTHER"
+										},
+										"sink": {
+											"name": "COST_OTHER"
+										}
+									},
+									{
+										"source": {
+											"name": "COST_REPAIRS_INFL_ADJ"
+										},
+										"sink": {
+											"name": "COST_REPAIRS_INFL_ADJ"
+										}
+									},
+									{
+										"source": {
+											"name": "COST_OTHER_INFL_ADJ"
+										},
+										"sink": {
+											"name": "COST_OTHER_INFL_ADJ"
+										}
+									},
+									{
+										"source": {
+											"name": "NR_INJURIES"
+										},
+										"sink": {
+											"name": "NR_INJURIES"
+										}
+									},
+									{
+										"source": {
+											"name": "NR_FATALITIES"
+										},
+										"sink": {
+											"name": "NR_FATALITIES"
+										}
+									},
+									{
+										"source": {
+											"name": "INDICATED_DAMAGE"
+										},
+										"sink": {
+											"name": "INDICATED_DAMAGE"
+										}
+									},
+									{
+										"source": {
+											"name": "SPECIES"
+										},
+										"sink": {
+											"name": "SPECIES"
+										}
+									},
+									{
+										"source": {
+											"name": "WARNED"
+										},
+										"sink": {
+											"name": "WARNED"
+										}
+									}
+								]
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_Silver_FAA_Source",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_Staging_SQL",
+								"type": "DatasetReference",
+								"parameters": {
+									"tableName": "stg.FAA_Strikes"
+								}
+							}
+						]
+					},
+					{
+						"name": "Copy_Silver_OF_to_Staging",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "SP_Truncate_Staging",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "ParquetSource",
+								"storeSettings": {
+									"type": "AzureBlobFSReadSettings",
+									"recursive": true,
+									"wildcardFileName": "*.parquet",
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "ParquetReadSettings"
+								}
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false
+							},
+							"enableStaging": false,
+							"enableSkipIncompatibleRow": true,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "Prop_0"
+										},
+										"sink": {
+											"name": "OF_ID"
+										}
+									},
+									{
+										"source": {
+											"name": "Prop_1"
+										},
+										"sink": {
+											"name": "Airport_Name"
+										}
+									},
+									{
+										"source": {
+											"name": "Prop_2"
+										},
+										"sink": {
+											"name": "City_Name"
+										}
+									},
+									{
+										"source": {
+											"name": "Prop_3"
+										},
+										"sink": {
+											"name": "Country"
+										}
+									},
+									{
+										"source": {
+											"name": "Prop_4"
+										},
+										"sink": {
+											"name": "IATA_Code"
+										}
+									},
+									{
+										"source": {
+											"name": "Prop_5"
+										},
+										"sink": {
+											"name": "ICAO_Code"
+										}
+									},
+									{
+										"source": {
+											"name": "Prop_6"
+										},
+										"sink": {
+											"name": "Latitude"
+										}
+									},
+									{
+										"source": {
+											"name": "Prop_7"
+										},
+										"sink": {
+											"name": "Longitude"
+										}
+									},
+									{
+										"source": {
+											"name": "Prop_8"
+										},
+										"sink": {
+											"name": "Altitude_FT"
+										}
+									},
+									{
+										"source": {
+											"name": "Prop_9"
+										},
+										"sink": {
+											"name": "TZ_Offset"
+										}
+									},
+									{
+										"source": {
+											"name": "Prop_10"
+										},
+										"sink": {
+											"name": "DST_Ind"
+										}
+									},
+									{
+										"source": {
+											"name": "Prop_11"
+										},
+										"sink": {
+											"name": "TZ_Name"
+										}
+									},
+									{
+										"source": {
+											"name": "Prop_12"
+										},
+										"sink": {
+											"name": "Airport_Type"
+										}
+									},
+									{
+										"source": {
+											"name": "Prop_13"
+										},
+										"sink": {
+											"name": "OF_Source"
+										}
+									}
+								]
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "DS_Silver_OF_Source",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "DS_Staging_SQL",
+								"type": "DatasetReference",
+								"parameters": {
+									"tableName": "stg.OF_Airports"
+								}
+							}
+						]
+					},
+					{
+						"name": "SP_Silver_to_Gold",
+						"type": "SqlServerStoredProcedure",
+						"dependsOn": [
+							{
+								"activity": "ForEach_BTS_Months",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							},
+							{
+								"activity": "Copy_Silver_FAA_to_Staging",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							},
+							{
+								"activity": "Copy_Silver_OF_to_Staging",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"storedProcedureName": "[[silver].[sp_Silver_to_Gold_Master]",
+							"storedProcedureParameters": {
+								"ETL_Batch_ID": {
+									"value": {
+										"value": "202512",
+										"type": "Expression"
+									},
+									"type": "Int64"
+								}
+							}
+						},
+						"linkedServiceName": {
+							"referenceName": "LS_SQL_Gold",
+							"type": "LinkedServiceReference"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2026-06-10T12:26:37Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_SQL_Gold')]",
+				"[concat(variables('factoryId'), '/datasets/DS_Silver_FAA_Source')]",
+				"[concat(variables('factoryId'), '/datasets/DS_Staging_SQL')]",
+				"[concat(variables('factoryId'), '/datasets/DS_Silver_OF_Source')]",
+				"[concat(variables('factoryId'), '/datasets/DS_Silver_BTS')]",
+				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS_Bronze')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DF_Bronze_to_Silver_BTS')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "DS_Bronze_BTS_CSV",
+								"type": "DatasetReference"
+							},
+							"name": "BronzeBTS"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "DS_Silver_BTS",
+								"type": "DatasetReference"
+							},
+							"name": "SilverBTS"
+						}
+					],
+					"transformations": [
+						{
+							"name": "CleanAndStandardize"
+						},
+						{
+							"name": "SelectBTSColumns"
+						},
+						{
+							"name": "AddAudit"
+						}
+					],
+					"scriptLines": [
+						"parameters{",
+						"     monthFolder as string ('Apr2025')",
+						"}",
+						"source(output(",
+						"          YEAR as short,",
+						"          QUARTER as short,",
+						"          MONTH as short,",
+						"          DAY_OF_MONTH as boolean,",
+						"          DAY_OF_WEEK as short,",
+						"          FL_DATE as string,",
+						"          OP_UNIQUE_CARRIER as string,",
+						"          OP_CARRIER_AIRLINE_ID as short,",
+						"          OP_CARRIER as string,",
+						"          TAIL_NUM as string,",
+						"          OP_CARRIER_FL_NUM as short,",
+						"          ORIGIN_AIRPORT_ID as short,",
+						"          ORIGIN_AIRPORT_SEQ_ID as integer,",
+						"          ORIGIN_CITY_MARKET_ID as integer,",
+						"          ORIGIN as string,",
+						"          ORIGIN_CITY_NAME as string,",
+						"          ORIGIN_STATE_ABR as string,",
+						"          ORIGIN_STATE_FIPS as short,",
+						"          ORIGIN_STATE_NM as string,",
+						"          ORIGIN_WAC as short,",
+						"          DEST_AIRPORT_ID as short,",
+						"          DEST_AIRPORT_SEQ_ID as integer,",
+						"          DEST_CITY_MARKET_ID as integer,",
+						"          DEST as string,",
+						"          DEST_CITY_NAME as string,",
+						"          DEST_STATE_ABR as string,",
+						"          DEST_STATE_FIPS as short,",
+						"          DEST_STATE_NM as string,",
+						"          DEST_WAC as short,",
+						"          CRS_DEP_TIME as short,",
+						"          DEP_TIME as short,",
+						"          DEP_DELAY as double,",
+						"          DEP_DELAY_NEW as double,",
+						"          DEP_DEL15 as double,",
+						"          DEP_DELAY_GROUP as short,",
+						"          DEP_TIME_BLK as string,",
+						"          TAXI_OUT as double,",
+						"          WHEELS_OFF as short,",
+						"          WHEELS_ON as short,",
+						"          TAXI_IN as double,",
+						"          CRS_ARR_TIME as short,",
+						"          ARR_TIME as short,",
+						"          ARR_DELAY as double,",
+						"          ARR_DELAY_NEW as double,",
+						"          ARR_DEL15 as double,",
+						"          ARR_DELAY_GROUP as short,",
+						"          ARR_TIME_BLK as string,",
+						"          CANCELLED as double,",
+						"          CANCELLATION_CODE as string,",
+						"          DIVERTED as double,",
+						"          CRS_ELAPSED_TIME as double,",
+						"          ACTUAL_ELAPSED_TIME as double,",
+						"          AIR_TIME as double,",
+						"          FLIGHTS as double,",
+						"          DISTANCE as double,",
+						"          DISTANCE_GROUP as short,",
+						"          CARRIER_DELAY as double,",
+						"          WEATHER_DELAY as double,",
+						"          NAS_DELAY as double,",
+						"          SECURITY_DELAY as double,",
+						"          LATE_AIRCRAFT_DELAY as double,",
+						"          FIRST_DEP_TIME as short,",
+						"          TOTAL_ADD_GTIME as double,",
+						"          LONGEST_ADD_GTIME as double,",
+						"          DIV_AIRPORT_LANDINGS as boolean,",
+						"          DIV_REACHED_DEST as double,",
+						"          DIV_ACTUAL_ELAPSED_TIME as double,",
+						"          DIV_ARR_DELAY as double,",
+						"          DIV_DISTANCE as double,",
+						"          DIV1_AIRPORT as string,",
+						"          DIV1_AIRPORT_ID as short,",
+						"          DIV1_AIRPORT_SEQ_ID as integer,",
+						"          DIV1_WHEELS_ON as short,",
+						"          DIV1_TOTAL_GTIME as double,",
+						"          DIV1_LONGEST_GTIME as double,",
+						"          DIV1_WHEELS_OFF as short,",
+						"          DIV1_TAIL_NUM as string,",
+						"          DIV2_AIRPORT as string,",
+						"          DIV2_AIRPORT_ID as string,",
+						"          DIV2_AIRPORT_SEQ_ID as string,",
+						"          DIV2_WHEELS_ON as string,",
+						"          DIV2_TOTAL_GTIME as string,",
+						"          DIV2_LONGEST_GTIME as string,",
+						"          DIV2_WHEELS_OFF as string,",
+						"          DIV2_TAIL_NUM as string,",
+						"          DIV3_AIRPORT as string,",
+						"          DIV3_AIRPORT_ID as string,",
+						"          DIV3_AIRPORT_SEQ_ID as string,",
+						"          DIV3_WHEELS_ON as string,",
+						"          DIV3_TOTAL_GTIME as string,",
+						"          DIV3_LONGEST_GTIME as string,",
+						"          DIV3_WHEELS_OFF as string,",
+						"          DIV3_TAIL_NUM as string,",
+						"          DIV4_AIRPORT as string,",
+						"          DIV4_AIRPORT_ID as string,",
+						"          DIV4_AIRPORT_SEQ_ID as string,",
+						"          DIV4_WHEELS_ON as string,",
+						"          DIV4_TOTAL_GTIME as string,",
+						"          DIV4_LONGEST_GTIME as string,",
+						"          DIV4_WHEELS_OFF as string,",
+						"          DIV4_TAIL_NUM as string,",
+						"          DIV5_AIRPORT as string,",
+						"          DIV5_AIRPORT_ID as string,",
+						"          DIV5_AIRPORT_SEQ_ID as string,",
+						"          DIV5_WHEELS_ON as string,",
+						"          DIV5_TOTAL_GTIME as string,",
+						"          DIV5_LONGEST_GTIME as string,",
+						"          DIV5_WHEELS_OFF as string,",
+						"          {{DIV5_TAIL_NUM} as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     limit: 1000,",
+						"     ignoreNoFilesFound: false) ~> BronzeBTS",
+						"BronzeBTS derive(OP_UNIQUE_CARRIER = iif(isNull(OP_UNIQUE_CARRIER) || trim(OP_UNIQUE_CARRIER)=='', toString(null()), upper(trim(OP_UNIQUE_CARRIER))),",
+						"          OP_CARRIER = iif(isNull(OP_CARRIER) || trim(OP_CARRIER)=='', toString(null()), upper(trim(OP_CARRIER))),",
+						"          TAIL_NUM = iif(isNull(TAIL_NUM) || trim(TAIL_NUM)=='', toString(null()), upper(trim(TAIL_NUM))),",
+						"          ORIGIN = iif(isNull(ORIGIN) || trim(ORIGIN)=='', toString(null()), upper(trim(ORIGIN))),",
+						"          DEST = iif(isNull(DEST) || trim(DEST)=='', toString(null()), upper(trim(DEST))),",
+						"          CANCELLATION_CODE = iif(isNull(CANCELLATION_CODE) || trim(CANCELLATION_CODE)=='', toString(null()), upper(trim(CANCELLATION_CODE))),",
+						"          FL_DATE = toDate(FL_DATE, 'yyyy-MM-dd'),",
+						"          CARRIER_DELAY = iifNull(CARRIER_DELAY, toDouble(0)),",
+						"          WEATHER_DELAY = iifNull(WEATHER_DELAY, toDouble(0)),",
+						"          NAS_DELAY = iifNull(NAS_DELAY, toDouble(0)),",
+						"          SECURITY_DELAY = iifNull(SECURITY_DELAY, toDouble(0)),",
+						"          LATE_AIRCRAFT_DELAY = iifNull(LATE_AIRCRAFT_DELAY, toDouble(0))) ~> CleanAndStandardize",
+						"CleanAndStandardize select(mapColumn(",
+						"          FL_DATE,",
+						"          OP_UNIQUE_CARRIER,",
+						"          OP_CARRIER_AIRLINE_ID,",
+						"          OP_CARRIER,",
+						"          TAIL_NUM,",
+						"          OP_CARRIER_FL_NUM,",
+						"          ORIGIN_AIRPORT_SEQ_ID,",
+						"          ORIGIN,",
+						"          DEST_AIRPORT_SEQ_ID,",
+						"          DEST,",
+						"          CRS_DEP_TIME,",
+						"          DEP_TIME,",
+						"          DEP_DELAY,",
+						"          DEP_DELAY_NEW,",
+						"          DEP_DEL15,",
+						"          CRS_ARR_TIME,",
+						"          ARR_TIME,",
+						"          ARR_DELAY,",
+						"          ARR_DELAY_NEW,",
+						"          ARR_DEL15,",
+						"          CANCELLED,",
+						"          CANCELLATION_CODE,",
+						"          DIVERTED,",
+						"          FLIGHTS,",
+						"          DISTANCE,",
+						"          CARRIER_DELAY,",
+						"          WEATHER_DELAY,",
+						"          NAS_DELAY,",
+						"          SECURITY_DELAY,",
+						"          LATE_AIRCRAFT_DELAY",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> SelectBTSColumns",
+						"SelectBTSColumns derive(Load_Date = currentTimestamp(),",
+						"          ETL_Batch_ID = 'BTS_INIT',",
+						"          Record_Source = 'BTS') ~> AddAudit",
+						"AddAudit sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     format: 'parquet',",
+						"     truncate: true,",
+						"     umask: 0022,",
+						"     preCommands: [],",
+						"     postCommands: [],",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> SilverBTS"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/DS_Bronze_BTS_CSV')]",
+				"[concat(variables('factoryId'), '/datasets/DS_Silver_BTS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Trigger_BTS_Upload')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "Bronze_to_Silver_BTS",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/bronze/blobs/bts/",
+					"blobPathEndsWith": ".zip",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('Trigger_BTS_Upload_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/Bronze_to_Silver_BTS')]"
+			]
+		}
+	]
+}

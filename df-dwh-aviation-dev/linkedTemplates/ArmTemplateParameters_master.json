@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "df-dwh-aviation-dev"
+		},
+		"LS_ADLS_Bronze_accountKey": {
+			"value": ""
+		},
+		"LS_SQL_Gold_connectionString": {
+			"value": ""
+		},
+		"LS_ADLS_Bronze_properties_typeProperties_url": {
+			"value": "https://stdwhaviationdev.dfs.core.windows.net"
+		},
+		"Trigger_BTS_Upload_properties_typeProperties_scope": {
+			"value": "/subscriptions/5c01aa12-dd53-4da6-ac9b-2cedc706e93e/resourceGroups/rg-dwh-aviation-dev/providers/Microsoft.Storage/storageAccounts/stdwhaviationdev"
+		},
+		"Trigger_FAA_Upload_properties_typeProperties_scope": {
+			"value": "/subscriptions/5c01aa12-dd53-4da6-ac9b-2cedc706e93e/resourceGroups/rg-dwh-aviation-dev/providers/Microsoft.Storage/storageAccounts/stdwhaviationdev"
+		},
+		"Trigger_OF_Upload_properties_typeProperties_scope": {
+			"value": "/subscriptions/5c01aa12-dd53-4da6-ac9b-2cedc706e93e/resourceGroups/rg-dwh-aviation-dev/providers/Microsoft.Storage/storageAccounts/stdwhaviationdev"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}

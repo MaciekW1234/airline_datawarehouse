@@ -1,0 +1,104 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "df-dwh-aviation-dev"
+		},
+		"LS_ADLS_Bronze_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'LS_ADLS_Bronze'"
+		},
+		"LS_SQL_Gold_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_SQL_Gold'"
+		},
+		"LS_ADLS_Bronze_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://stdwhaviationdev.dfs.core.windows.net"
+		},
+		"Trigger_BTS_Upload_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/5c01aa12-dd53-4da6-ac9b-2cedc706e93e/resourceGroups/rg-dwh-aviation-dev/providers/Microsoft.Storage/storageAccounts/stdwhaviationdev"
+		},
+		"Trigger_FAA_Upload_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/5c01aa12-dd53-4da6-ac9b-2cedc706e93e/resourceGroups/rg-dwh-aviation-dev/providers/Microsoft.Storage/storageAccounts/stdwhaviationdev"
+		},
+		"Trigger_OF_Upload_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/5c01aa12-dd53-4da6-ac9b-2cedc706e93e/resourceGroups/rg-dwh-aviation-dev/providers/Microsoft.Storage/storageAccounts/stdwhaviationdev"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "df-dwh-aviation-dev_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"LS_ADLS_Bronze_accountKey": {
+						"value": "[parameters('LS_ADLS_Bronze_accountKey')]"
+					},
+					"LS_SQL_Gold_connectionString": {
+						"value": "[parameters('LS_SQL_Gold_connectionString')]"
+					},
+					"LS_ADLS_Bronze_properties_typeProperties_url": {
+						"value": "[parameters('LS_ADLS_Bronze_properties_typeProperties_url')]"
+					},
+					"Trigger_BTS_Upload_properties_typeProperties_scope": {
+						"value": "[parameters('Trigger_BTS_Upload_properties_typeProperties_scope')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "df-dwh-aviation-dev_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"Trigger_FAA_Upload_properties_typeProperties_scope": {
+						"value": "[parameters('Trigger_FAA_Upload_properties_typeProperties_scope')]"
+					},
+					"Trigger_OF_Upload_properties_typeProperties_scope": {
+						"value": "[parameters('Trigger_OF_Upload_properties_typeProperties_scope')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'df-dwh-aviation-dev_ArmTemplate_0')]"
+			]
+		}
+	]
+}
