@@ -690,56 +690,7 @@
 					},
 					"compressionCodec": "snappy"
 				},
-				"schema": [
-					{
-						"name": "Name",
-						"type": "UTF8"
-					},
-					{
-						"name": "City",
-						"type": "UTF8"
-					},
-					{
-						"name": "Country",
-						"type": "UTF8"
-					},
-					{
-						"name": "IATA",
-						"type": "UTF8"
-					},
-					{
-						"name": "ICAO",
-						"type": "UTF8"
-					},
-					{
-						"name": "Latitude",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "Longitude",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "Timezone",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "Tz_Database_Timezone",
-						"type": "UTF8"
-					},
-					{
-						"name": "Load_Date",
-						"type": "INT96"
-					},
-					{
-						"name": "ETL_Batch_ID",
-						"type": "UTF8"
-					},
-					{
-						"name": "Record_Source",
-						"type": "UTF8"
-					}
-				]
+				"schema": []
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_ADLS_Bronze')]"
@@ -2101,20 +2052,6 @@
 						"          Record_Source = 'OpenFlights') ~> AddAudit",
 						"AddAudit sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
-						"     input(",
-						"          Name as string,",
-						"          City as string,",
-						"          Country as string,",
-						"          IATA as string,",
-						"          ICAO as string,",
-						"          Latitude as double,",
-						"          Longitude as double,",
-						"          Timezone as double,",
-						"          Tz_Database_Timezone as string,",
-						"          Load_Date as timestamp,",
-						"          ETL_Batch_ID as string,",
-						"          Record_Source as string",
-						"     ),",
 						"     format: 'parquet',",
 						"     truncate: true,",
 						"     umask: 0022,",
