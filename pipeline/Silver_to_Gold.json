@@ -396,37 +396,12 @@
 						"type": "TabularTranslator",
 						"mappings": [
 							{
-								"sink": {
-									"name": "OF_ID"
-								}
-							},
-							{
-								"sink": {
-									"name": "Airport_Name"
-								}
-							},
-							{
-								"sink": {
-									"name": "City_Name"
-								}
-							},
-							{
 								"source": {
 									"name": "Country",
 									"type": "String"
 								},
 								"sink": {
 									"name": "Country"
-								}
-							},
-							{
-								"sink": {
-									"name": "IATA_Code"
-								}
-							},
-							{
-								"sink": {
-									"name": "ICAO_Code"
 								}
 							},
 							{
@@ -448,33 +423,57 @@
 								}
 							},
 							{
+								"source": {
+									"name": "Name",
+									"type": "String"
+								},
 								"sink": {
-									"name": "Altitude_FT"
+									"name": "Airport_Name"
 								}
 							},
 							{
+								"source": {
+									"name": "City",
+									"type": "String"
+								},
+								"sink": {
+									"name": "City_Name"
+								}
+							},
+							{
+								"source": {
+									"name": "IATA",
+									"type": "String"
+								},
+								"sink": {
+									"name": "IATA_Code"
+								}
+							},
+							{
+								"source": {
+									"name": "ICAO",
+									"type": "String"
+								},
+								"sink": {
+									"name": "ICAO_Code"
+								}
+							},
+							{
+								"source": {
+									"name": "Timezone",
+									"type": "Double"
+								},
 								"sink": {
 									"name": "TZ_Offset"
 								}
 							},
 							{
-								"sink": {
-									"name": "DST_Ind"
-								}
-							},
-							{
+								"source": {
+									"name": "Tz_Database_Timezone",
+									"type": "String"
+								},
 								"sink": {
 									"name": "TZ_Name"
-								}
-							},
-							{
-								"sink": {
-									"name": "Airport_Type"
-								}
-							},
-							{
-								"sink": {
-									"name": "OF_Source"
 								}
 							}
 						]
