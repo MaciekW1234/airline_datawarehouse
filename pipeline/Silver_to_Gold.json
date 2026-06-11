@@ -147,11 +147,6 @@
 											}
 										},
 										{
-											"sink": {
-												"name": "ORIGIN_CITY_MARKET_ID"
-											}
-										},
-										{
 											"source": {
 												"name": "ORIGIN",
 												"type": "String"
@@ -167,11 +162,6 @@
 											},
 											"sink": {
 												"name": "DEST_AIRPORT_SEQ_ID"
-											}
-										},
-										{
-											"sink": {
-												"name": "DEST_CITY_MARKET_ID"
 											}
 										},
 										{
@@ -217,16 +207,6 @@
 											},
 											"sink": {
 												"name": "DEP_DEL15"
-											}
-										},
-										{
-											"sink": {
-												"name": "TAXI_OUT"
-											}
-										},
-										{
-											"sink": {
-												"name": "TAXI_IN"
 											}
 										},
 										{
@@ -290,21 +270,6 @@
 											},
 											"sink": {
 												"name": "DIVERTED"
-											}
-										},
-										{
-											"sink": {
-												"name": "CRS_ELAPSED_TIME"
-											}
-										},
-										{
-											"sink": {
-												"name": "ACTUAL_ELAPSED_TIME"
-											}
-										},
-										{
-											"sink": {
-												"name": "AIR_TIME"
 											}
 										},
 										{
@@ -431,259 +396,177 @@
 						"type": "TabularTranslator",
 						"mappings": [
 							{
-								"source": {
-									"name": "INDEX_NR"
-								},
 								"sink": {
-									"name": "INDEX_NR"
+									"name": "FL_DATE"
+								}
+							},
+							{
+								"sink": {
+									"name": "OP_UNIQUE_CARRIER"
+								}
+							},
+							{
+								"sink": {
+									"name": "OP_CARRIER_AIRLINE_ID"
+								}
+							},
+							{
+								"sink": {
+									"name": "OP_CARRIER"
+								}
+							},
+							{
+								"sink": {
+									"name": "TAIL_NUM"
+								}
+							},
+							{
+								"sink": {
+									"name": "OP_CARRIER_FL_NUM"
+								}
+							},
+							{
+								"sink": {
+									"name": "ORIGIN_AIRPORT_SEQ_ID"
+								}
+							},
+							{
+								"sink": {
+									"name": "ORIGIN_CITY_MARKET_ID"
+								}
+							},
+							{
+								"sink": {
+									"name": "ORIGIN"
+								}
+							},
+							{
+								"sink": {
+									"name": "DEST_AIRPORT_SEQ_ID"
+								}
+							},
+							{
+								"sink": {
+									"name": "DEST_CITY_MARKET_ID"
+								}
+							},
+							{
+								"sink": {
+									"name": "DEST"
+								}
+							},
+							{
+								"sink": {
+									"name": "CRS_DEP_TIME"
+								}
+							},
+							{
+								"sink": {
+									"name": "DEP_TIME"
+								}
+							},
+							{
+								"sink": {
+									"name": "DEP_DELAY"
+								}
+							},
+							{
+								"sink": {
+									"name": "DEP_DEL15"
+								}
+							},
+							{
+								"sink": {
+									"name": "TAXI_OUT"
+								}
+							},
+							{
+								"sink": {
+									"name": "TAXI_IN"
+								}
+							},
+							{
+								"sink": {
+									"name": "CRS_ARR_TIME"
+								}
+							},
+							{
+								"sink": {
+									"name": "ARR_TIME"
+								}
+							},
+							{
+								"sink": {
+									"name": "ARR_DELAY"
+								}
+							},
+							{
+								"sink": {
+									"name": "ARR_DEL15"
+								}
+							},
+							{
+								"sink": {
+									"name": "CANCELLED"
+								}
+							},
+							{
+								"sink": {
+									"name": "CANCELLATION_CODE"
+								}
+							},
+							{
+								"sink": {
+									"name": "DIVERTED"
+								}
+							},
+							{
+								"sink": {
+									"name": "CRS_ELAPSED_TIME"
+								}
+							},
+							{
+								"sink": {
+									"name": "ACTUAL_ELAPSED_TIME"
+								}
+							},
+							{
+								"sink": {
+									"name": "AIR_TIME"
 								}
 							},
 							{
 								"source": {
-									"name": "INCIDENT_DATE"
-								},
-								"sink": {
-									"name": "INCIDENT_DATE"
-								}
-							},
-							{
-								"source": {
-									"name": "TIME"
-								},
-								"sink": {
-									"name": "TIME"
-								}
-							},
-							{
-								"source": {
-									"name": "AIRPORT_ID"
-								},
-								"sink": {
-									"name": "AIRPORT_ID"
-								}
-							},
-							{
-								"source": {
-									"name": "AIRPORT"
-								},
-								"sink": {
-									"name": "AIRPORT"
-								}
-							},
-							{
-								"source": {
-									"name": "OPID"
-								},
-								"sink": {
-									"name": "OPID"
-								}
-							},
-							{
-								"source": {
-									"name": "REG"
-								},
-								"sink": {
-									"name": "REG"
-								}
-							},
-							{
-								"source": {
-									"name": "PHASE_OF_FLIGHT"
-								},
-								"sink": {
-									"name": "PHASE_OF_FLIGHT"
-								}
-							},
-							{
-								"source": {
-									"name": "DAMAGE_LEVEL"
-								},
-								"sink": {
-									"name": "DAMAGE_LEVEL"
-								}
-							},
-							{
-								"source": {
-									"name": "NUM_STRUCK"
-								},
-								"sink": {
-									"name": "NUM_STRUCK"
-								}
-							},
-							{
-								"source": {
-									"name": "NUM_SEEN"
-								},
-								"sink": {
-									"name": "NUM_SEEN"
-								}
-							},
-							{
-								"source": {
-									"name": "SIZE"
-								},
-								"sink": {
-									"name": "SIZE"
-								}
-							},
-							{
-								"source": {
-									"name": "EFFECT"
-								},
-								"sink": {
-									"name": "EFFECT"
-								}
-							},
-							{
-								"source": {
-									"name": "AMA"
-								},
-								"sink": {
-									"name": "AMA"
-								}
-							},
-							{
-								"source": {
-									"name": "AMO"
-								},
-								"sink": {
-									"name": "AMO"
-								}
-							},
-							{
-								"source": {
-									"name": "AC_CLASS"
-								},
-								"sink": {
-									"name": "AC_CLASS"
-								}
-							},
-							{
-								"source": {
-									"name": "AC_MASS"
-								},
-								"sink": {
-									"name": "AC_MASS"
-								}
-							},
-							{
-								"source": {
-									"name": "TYPE_ENG"
-								},
-								"sink": {
-									"name": "TYPE_ENG"
-								}
-							},
-							{
-								"source": {
-									"name": "NUM_ENGS"
-								},
-								"sink": {
-									"name": "NUM_ENGS"
-								}
-							},
-							{
-								"source": {
-									"name": "HEIGHT"
-								},
-								"sink": {
-									"name": "HEIGHT"
-								}
-							},
-							{
-								"source": {
-									"name": "SPEED"
-								},
-								"sink": {
-									"name": "SPEED"
-								}
-							},
-							{
-								"source": {
-									"name": "DISTANCE"
+									"name": "DISTANCE",
+									"type": "String"
 								},
 								"sink": {
 									"name": "DISTANCE"
 								}
 							},
 							{
-								"source": {
-									"name": "AOS"
-								},
 								"sink": {
-									"name": "AOS"
+									"name": "CARRIER_DELAY"
 								}
 							},
 							{
-								"source": {
-									"name": "COST_REPAIRS"
-								},
 								"sink": {
-									"name": "COST_REPAIRS"
+									"name": "WEATHER_DELAY"
 								}
 							},
 							{
-								"source": {
-									"name": "COST_OTHER"
-								},
 								"sink": {
-									"name": "COST_OTHER"
+									"name": "NAS_DELAY"
 								}
 							},
 							{
-								"source": {
-									"name": "COST_REPAIRS_INFL_ADJ"
-								},
 								"sink": {
-									"name": "COST_REPAIRS_INFL_ADJ"
+									"name": "SECURITY_DELAY"
 								}
 							},
 							{
-								"source": {
-									"name": "COST_OTHER_INFL_ADJ"
-								},
 								"sink": {
-									"name": "COST_OTHER_INFL_ADJ"
-								}
-							},
-							{
-								"source": {
-									"name": "NR_INJURIES"
-								},
-								"sink": {
-									"name": "NR_INJURIES"
-								}
-							},
-							{
-								"source": {
-									"name": "NR_FATALITIES"
-								},
-								"sink": {
-									"name": "NR_FATALITIES"
-								}
-							},
-							{
-								"source": {
-									"name": "INDICATED_DAMAGE"
-								},
-								"sink": {
-									"name": "INDICATED_DAMAGE"
-								}
-							},
-							{
-								"source": {
-									"name": "SPECIES"
-								},
-								"sink": {
-									"name": "SPECIES"
-								}
-							},
-							{
-								"source": {
-									"name": "WARNED"
-								},
-								"sink": {
-									"name": "WARNED"
+									"name": "LATE_AIRCRAFT_DELAY"
 								}
 							}
 						]
@@ -691,7 +574,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "DS_Silver_FAA_Source",
+						"referenceName": "DS_Silver_FAA",
 						"type": "DatasetReference"
 					}
 				],
