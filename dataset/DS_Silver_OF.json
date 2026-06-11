@@ -15,56 +15,7 @@
 			},
 			"compressionCodec": "snappy"
 		},
-		"schema": [
-			{
-				"name": "Name",
-				"type": "UTF8"
-			},
-			{
-				"name": "City",
-				"type": "UTF8"
-			},
-			{
-				"name": "Country",
-				"type": "UTF8"
-			},
-			{
-				"name": "IATA",
-				"type": "UTF8"
-			},
-			{
-				"name": "ICAO",
-				"type": "UTF8"
-			},
-			{
-				"name": "Latitude",
-				"type": "DOUBLE"
-			},
-			{
-				"name": "Longitude",
-				"type": "DOUBLE"
-			},
-			{
-				"name": "Timezone",
-				"type": "DOUBLE"
-			},
-			{
-				"name": "Tz_Database_Timezone",
-				"type": "UTF8"
-			},
-			{
-				"name": "Load_Date",
-				"type": "INT96"
-			},
-			{
-				"name": "ETL_Batch_ID",
-				"type": "UTF8"
-			},
-			{
-				"name": "Record_Source",
-				"type": "UTF8"
-			}
-		]
+		"schema": []
 	},
 	"type": "Microsoft.DataFactory/factories/datasets"
 }
