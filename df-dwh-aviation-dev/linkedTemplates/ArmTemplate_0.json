@@ -19,7 +19,7 @@
 			"type": "string",
 			"defaultValue": "https://stdwhaviationdev.dfs.core.windows.net"
 		},
-		"Trigger_BTS_Upload_properties_typeProperties_scope": {
+		"Trigger_FAA_Upload_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/5c01aa12-dd53-4da6-ac9b-2cedc706e93e/resourceGroups/rg-dwh-aviation-dev/providers/Microsoft.Storage/storageAccounts/stdwhaviationdev"
 		}
@@ -508,108 +508,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_SQL_Gold')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Bronze_to_Silver_BTS')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "ForEach_Month",
-						"type": "ForEach",
-						"dependsOn": [],
-						"userProperties": [],
-						"typeProperties": {
-							"items": {
-								"value": "@createArray('Dec2025')",
-								"type": "Expression"
-							},
-							"isSequential": false,
-							"batchCount": 4,
-							"activities": [
-								{
-									"name": "Copy_BTS_CSV_to_Silver",
-									"type": "Copy",
-									"dependsOn": [],
-									"policy": {
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
-									},
-									"userProperties": [],
-									"typeProperties": {
-										"source": {
-											"type": "DelimitedTextSource",
-											"storeSettings": {
-												"type": "AzureBlobFSReadSettings",
-												"recursive": false,
-												"wildcardFileName": "*.csv",
-												"enablePartitionDiscovery": false
-											},
-											"formatSettings": {
-												"type": "DelimitedTextReadSettings"
-											}
-										},
-										"sink": {
-											"type": "ParquetSink",
-											"storeSettings": {
-												"type": "AzureBlobFSWriteSettings"
-											},
-											"formatSettings": {
-												"type": "ParquetWriteSettings"
-											}
-										},
-										"enableStaging": false,
-										"translator": {
-											"type": "TabularTranslator",
-											"typeConversion": true,
-											"typeConversionSettings": {
-												"allowDataTruncation": true,
-												"treatBooleanAsNumber": false
-											}
-										}
-									},
-									"inputs": [
-										{
-											"referenceName": "DS_Bronze_BTS_CSV",
-											"type": "DatasetReference",
-											"parameters": {
-												"monthFolder": {
-													"value": "@item()",
-													"type": "Expression"
-												}
-											}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "DS_Silver_BTS",
-											"type": "DatasetReference",
-											"parameters": {
-												"monthFolder": {
-													"value": "@item()",
-													"type": "Expression"
-												}
-											}
-										}
-									]
-								}
-							]
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": [],
-				"lastPublishTime": "2026-06-09T19:28:50Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DS_Bronze_BTS_CSV')]",
-				"[concat(variables('factoryId'), '/datasets/DS_Silver_BTS')]"
 			]
 		},
 		{
@@ -1931,7 +1829,60 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Trigger_BTS_Upload')]",
+			"name": "[concat(parameters('factoryName'), '/Bronze_to_Silver_BTS')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Data flow1",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "DF_Bronze_to_Silver_BTS",
+								"type": "DataFlowReference",
+								"parameters": {
+									"monthFolder": "'Apr2025'"
+								},
+								"datasetParameters": {
+									"BronzeBTS": {
+										"monthFolder": "Apr2025"
+									},
+									"SilverBTS": {
+										"monthFolder": "Apr2025"
+									}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": [],
+				"lastPublishTime": "2026-06-09T19:28:50Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/DF_Bronze_to_Silver_BTS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Trigger_FAA_Upload')]",
 			"type": "Microsoft.DataFactory/factories/triggers",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -1940,7 +1891,7 @@
 				"pipelines": [
 					{
 						"pipelineReference": {
-							"referenceName": "Bronze_to_Silver_BTS",
+							"referenceName": "Bronze_to_Silver_FAA",
 							"type": "PipelineReference"
 						},
 						"parameters": {}
@@ -1948,17 +1899,17 @@
 				],
 				"type": "BlobEventsTrigger",
 				"typeProperties": {
-					"blobPathBeginsWith": "/bronze/blobs/bts/",
-					"blobPathEndsWith": ".zip",
+					"blobPathBeginsWith": "/bronze/blobs/faa/",
+					"blobPathEndsWith": ".csv",
 					"ignoreEmptyBlobs": true,
-					"scope": "[parameters('Trigger_BTS_Upload_properties_typeProperties_scope')]",
+					"scope": "[parameters('Trigger_FAA_Upload_properties_typeProperties_scope')]",
 					"events": [
 						"Microsoft.Storage.BlobCreated"
 					]
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/Bronze_to_Silver_BTS')]"
+				"[concat(variables('factoryId'), '/pipelines/Bronze_to_Silver_FAA')]"
 			]
 		}
 	]

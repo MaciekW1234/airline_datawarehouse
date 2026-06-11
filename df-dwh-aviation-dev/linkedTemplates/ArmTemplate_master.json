@@ -67,8 +67,8 @@
 					"LS_ADLS_Bronze_properties_typeProperties_url": {
 						"value": "[parameters('LS_ADLS_Bronze_properties_typeProperties_url')]"
 					},
-					"Trigger_BTS_Upload_properties_typeProperties_scope": {
-						"value": "[parameters('Trigger_BTS_Upload_properties_typeProperties_scope')]"
+					"Trigger_FAA_Upload_properties_typeProperties_scope": {
+						"value": "[parameters('Trigger_FAA_Upload_properties_typeProperties_scope')]"
 					}
 				}
 			},
@@ -88,11 +88,11 @@
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
 					},
-					"Trigger_FAA_Upload_properties_typeProperties_scope": {
-						"value": "[parameters('Trigger_FAA_Upload_properties_typeProperties_scope')]"
-					},
 					"Trigger_OF_Upload_properties_typeProperties_scope": {
 						"value": "[parameters('Trigger_OF_Upload_properties_typeProperties_scope')]"
+					},
+					"Trigger_BTS_Upload_properties_typeProperties_scope": {
+						"value": "[parameters('Trigger_BTS_Upload_properties_typeProperties_scope')]"
 					}
 				}
 			},

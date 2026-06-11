@@ -43,87 +43,39 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "ForEach_Month",
-						"type": "ForEach",
+						"name": "Data flow1",
+						"type": "ExecuteDataFlow",
 						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
 						"userProperties": [],
 						"typeProperties": {
-							"items": {
-								"value": "@createArray('Dec2025')",
-								"type": "Expression"
-							},
-							"isSequential": false,
-							"batchCount": 4,
-							"activities": [
-								{
-									"name": "Copy_BTS_CSV_to_Silver",
-									"type": "Copy",
-									"dependsOn": [],
-									"policy": {
-										"retry": 0,
-										"retryIntervalInSeconds": 30,
-										"secureOutput": false,
-										"secureInput": false
+							"dataflow": {
+								"referenceName": "DF_Bronze_to_Silver_BTS",
+								"type": "DataFlowReference",
+								"parameters": {
+									"monthFolder": "'Apr2025'"
+								},
+								"datasetParameters": {
+									"BronzeBTS": {
+										"monthFolder": "Apr2025"
 									},
-									"userProperties": [],
-									"typeProperties": {
-										"source": {
-											"type": "DelimitedTextSource",
-											"storeSettings": {
-												"type": "AzureBlobFSReadSettings",
-												"recursive": false,
-												"wildcardFileName": "*.csv",
-												"enablePartitionDiscovery": false
-											},
-											"formatSettings": {
-												"type": "DelimitedTextReadSettings"
-											}
-										},
-										"sink": {
-											"type": "ParquetSink",
-											"storeSettings": {
-												"type": "AzureBlobFSWriteSettings"
-											},
-											"formatSettings": {
-												"type": "ParquetWriteSettings"
-											}
-										},
-										"enableStaging": false,
-										"translator": {
-											"type": "TabularTranslator",
-											"typeConversion": true,
-											"typeConversionSettings": {
-												"allowDataTruncation": true,
-												"treatBooleanAsNumber": false
-											}
-										}
-									},
-									"inputs": [
-										{
-											"referenceName": "DS_Bronze_BTS_CSV",
-											"type": "DatasetReference",
-											"parameters": {
-												"monthFolder": {
-													"value": "@item()",
-													"type": "Expression"
-												}
-											}
-										}
-									],
-									"outputs": [
-										{
-											"referenceName": "DS_Silver_BTS",
-											"type": "DatasetReference",
-											"parameters": {
-												"monthFolder": {
-													"value": "@item()",
-													"type": "Expression"
-												}
-											}
-										}
-									]
+									"SilverBTS": {
+										"monthFolder": "Apr2025"
+									}
 								}
-							]
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
 						}
 					}
 				],
@@ -134,8 +86,7 @@
 				"lastPublishTime": "2026-06-09T19:28:50Z"
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DS_Bronze_BTS_CSV')]",
-				"[concat(variables('factoryId'), '/datasets/DS_Silver_BTS')]"
+				"[concat(variables('factoryId'), '/dataflows/DF_Bronze_to_Silver_BTS')]"
 			]
 		},
 		{
