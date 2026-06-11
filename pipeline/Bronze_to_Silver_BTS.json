@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "ForEach1",
+				"name": "IteratingBTSbyMonths",
 				"type": "ForEach",
 				"dependsOn": [],
 				"userProperties": [],
@@ -53,11 +53,6 @@
 				}
 			}
 		],
-		"parameters": {
-			"monthFolder": {
-				"type": "string"
-			}
-		},
 		"annotations": [],
 		"lastPublishTime": "2026-06-09T19:28:50Z"
 	},

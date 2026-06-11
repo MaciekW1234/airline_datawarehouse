@@ -8,7 +8,7 @@
 		"parameters": {
 			"monthFolder": {
 				"type": "string",
-				"defaultValue": "'Apr2025'"
+				"defaultValue": "Apr2025"
 			}
 		},
 		"annotations": [],
