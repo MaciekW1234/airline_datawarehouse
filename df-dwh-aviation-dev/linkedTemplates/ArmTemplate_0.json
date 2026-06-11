@@ -109,7 +109,7 @@
 				"parameters": {
 					"monthFolder": {
 						"type": "string",
-						"defaultValue": "'Apr2025'"
+						"defaultValue": "Apr2025"
 					}
 				},
 				"annotations": [],
@@ -1835,7 +1835,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "ForEach1",
+						"name": "IteratingBTSbyMonths",
 						"type": "ForEach",
 						"dependsOn": [],
 						"userProperties": [],
@@ -1888,11 +1888,6 @@
 				],
 				"policy": {
 					"elapsedTimeMetric": {}
-				},
-				"parameters": {
-					"monthFolder": {
-						"type": "string"
-					}
 				},
 				"annotations": [],
 				"lastPublishTime": "2026-06-09T19:28:50Z"
