@@ -391,7 +391,94 @@
 						"sqlWriterUseTableLock": false
 					},
 					"enableStaging": false,
-					"enableSkipIncompatibleRow": true
+					"enableSkipIncompatibleRow": true,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"sink": {
+									"name": "OF_ID"
+								}
+							},
+							{
+								"sink": {
+									"name": "Airport_Name"
+								}
+							},
+							{
+								"sink": {
+									"name": "City_Name"
+								}
+							},
+							{
+								"source": {
+									"name": "Country",
+									"type": "String"
+								},
+								"sink": {
+									"name": "Country"
+								}
+							},
+							{
+								"sink": {
+									"name": "IATA_Code"
+								}
+							},
+							{
+								"sink": {
+									"name": "ICAO_Code"
+								}
+							},
+							{
+								"source": {
+									"name": "Latitude",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "Latitude"
+								}
+							},
+							{
+								"source": {
+									"name": "Longitude",
+									"type": "Double"
+								},
+								"sink": {
+									"name": "Longitude"
+								}
+							},
+							{
+								"sink": {
+									"name": "Altitude_FT"
+								}
+							},
+							{
+								"sink": {
+									"name": "TZ_Offset"
+								}
+							},
+							{
+								"sink": {
+									"name": "DST_Ind"
+								}
+							},
+							{
+								"sink": {
+									"name": "TZ_Name"
+								}
+							},
+							{
+								"sink": {
+									"name": "Airport_Type"
+								}
+							},
+							{
+								"sink": {
+									"name": "OF_Source"
+								}
+							}
+						]
+					}
 				},
 				"inputs": [
 					{
