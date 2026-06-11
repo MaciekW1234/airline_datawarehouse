@@ -782,7 +782,228 @@
 								"writeBehavior": "insert",
 								"sqlWriterUseTableLock": false
 							},
-							"enableStaging": false
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "INDEX_NR",
+											"type": "Int32"
+										},
+										"sink": {
+											"name": "INDEX_NR"
+										}
+									},
+									{
+										"source": {
+											"name": "INCIDENT_DATE",
+											"type": "DateTime"
+										},
+										"sink": {
+											"name": "INCIDENT_DATE"
+										}
+									},
+									{
+										"source": {
+											"name": "TIME",
+											"type": "String"
+										},
+										"sink": {
+											"name": "TIME"
+										}
+									},
+									{
+										"source": {
+											"name": "AIRPORT_ID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "AIRPORT_ID"
+										}
+									},
+									{
+										"source": {
+											"name": "OPID",
+											"type": "String"
+										},
+										"sink": {
+											"name": "OPID"
+										}
+									},
+									{
+										"source": {
+											"name": "REG",
+											"type": "String"
+										},
+										"sink": {
+											"name": "REG"
+										}
+									},
+									{
+										"source": {
+											"name": "AMA",
+											"type": "String"
+										},
+										"sink": {
+											"name": "AMA"
+										}
+									},
+									{
+										"source": {
+											"name": "AMO",
+											"type": "String"
+										},
+										"sink": {
+											"name": "AMO"
+										}
+									},
+									{
+										"source": {
+											"name": "AC_CLASS",
+											"type": "String"
+										},
+										"sink": {
+											"name": "AC_CLASS"
+										}
+									},
+									{
+										"source": {
+											"name": "AC_MASS",
+											"type": "Int16"
+										},
+										"sink": {
+											"name": "AC_MASS"
+										}
+									},
+									{
+										"source": {
+											"name": "TYPE_ENG",
+											"type": "String"
+										},
+										"sink": {
+											"name": "TYPE_ENG"
+										}
+									},
+									{
+										"source": {
+											"name": "NUM_ENGS",
+											"type": "Int16"
+										},
+										"sink": {
+											"name": "NUM_ENGS"
+										}
+									},
+									{
+										"source": {
+											"name": "PHASE_OF_FLIGHT",
+											"type": "String"
+										},
+										"sink": {
+											"name": "PHASE_OF_FLIGHT"
+										}
+									},
+									{
+										"source": {
+											"name": "DISTANCE",
+											"type": "Double"
+										},
+										"sink": {
+											"name": "DISTANCE"
+										}
+									},
+									{
+										"source": {
+											"name": "AOS",
+											"type": "Int16"
+										},
+										"sink": {
+											"name": "AOS"
+										}
+									},
+									{
+										"source": {
+											"name": "INDICATED_DAMAGE",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "INDICATED_DAMAGE"
+										}
+									},
+									{
+										"source": {
+											"name": "DAMAGE_LEVEL",
+											"type": "String"
+										},
+										"sink": {
+											"name": "DAMAGE_LEVEL"
+										}
+									},
+									{
+										"source": {
+											"name": "NUM_STRUCK",
+											"type": "String"
+										},
+										"sink": {
+											"name": "NUM_STRUCK"
+										}
+									},
+									{
+										"source": {
+											"name": "SIZE",
+											"type": "String"
+										},
+										"sink": {
+											"name": "SIZE"
+										}
+									},
+									{
+										"source": {
+											"name": "NR_INJURIES",
+											"type": "Boolean"
+										},
+										"sink": {
+											"name": "NR_INJURIES"
+										}
+									},
+									{
+										"source": {
+											"name": "NR_FATALITIES",
+											"type": "String"
+										},
+										"sink": {
+											"name": "NR_FATALITIES"
+										}
+									},
+									{
+										"source": {
+											"name": "NUM_SEEN",
+											"type": "String"
+										},
+										"sink": {
+											"name": "NUM_SEEN"
+										}
+									},
+									{
+										"source": {
+											"name": "EFFECT",
+											"type": "String"
+										},
+										"sink": {
+											"name": "EFFECT"
+										}
+									},
+									{
+										"source": {
+											"name": "SPECIES",
+											"type": "String"
+										},
+										"sink": {
+											"name": "SPECIES"
+										}
+									}
+								]
+							}
 						},
 						"inputs": [
 							{
