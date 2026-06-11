@@ -85,7 +85,8 @@
 									"mappings": [
 										{
 											"source": {
-												"name": "FL_DATE"
+												"name": "FL_DATE",
+												"type": "DateTime"
 											},
 											"sink": {
 												"name": "FL_DATE"
@@ -93,7 +94,8 @@
 										},
 										{
 											"source": {
-												"name": "OP_UNIQUE_CARRIER"
+												"name": "OP_UNIQUE_CARRIER",
+												"type": "String"
 											},
 											"sink": {
 												"name": "OP_UNIQUE_CARRIER"
@@ -101,7 +103,8 @@
 										},
 										{
 											"source": {
-												"name": "OP_CARRIER_AIRLINE_ID"
+												"name": "OP_CARRIER_AIRLINE_ID",
+												"type": "Int16"
 											},
 											"sink": {
 												"name": "OP_CARRIER_AIRLINE_ID"
@@ -109,7 +112,8 @@
 										},
 										{
 											"source": {
-												"name": "OP_CARRIER"
+												"name": "OP_CARRIER",
+												"type": "String"
 											},
 											"sink": {
 												"name": "OP_CARRIER"
@@ -117,7 +121,8 @@
 										},
 										{
 											"source": {
-												"name": "TAIL_NUM"
+												"name": "TAIL_NUM",
+												"type": "String"
 											},
 											"sink": {
 												"name": "TAIL_NUM"
@@ -125,7 +130,8 @@
 										},
 										{
 											"source": {
-												"name": "OP_CARRIER_FL_NUM"
+												"name": "OP_CARRIER_FL_NUM",
+												"type": "Int16"
 											},
 											"sink": {
 												"name": "OP_CARRIER_FL_NUM"
@@ -133,23 +139,22 @@
 										},
 										{
 											"source": {
-												"name": "ORIGIN_AIRPORT_SEQ_ID"
+												"name": "ORIGIN_AIRPORT_SEQ_ID",
+												"type": "Int32"
 											},
 											"sink": {
 												"name": "ORIGIN_AIRPORT_SEQ_ID"
 											}
 										},
 										{
-											"source": {
-												"name": "ORIGIN_CITY_MARKET_ID"
-											},
 											"sink": {
 												"name": "ORIGIN_CITY_MARKET_ID"
 											}
 										},
 										{
 											"source": {
-												"name": "ORIGIN"
+												"name": "ORIGIN",
+												"type": "String"
 											},
 											"sink": {
 												"name": "ORIGIN"
@@ -157,23 +162,22 @@
 										},
 										{
 											"source": {
-												"name": "DEST_AIRPORT_SEQ_ID"
+												"name": "DEST_AIRPORT_SEQ_ID",
+												"type": "Int32"
 											},
 											"sink": {
 												"name": "DEST_AIRPORT_SEQ_ID"
 											}
 										},
 										{
-											"source": {
-												"name": "DEST_CITY_MARKET_ID"
-											},
 											"sink": {
 												"name": "DEST_CITY_MARKET_ID"
 											}
 										},
 										{
 											"source": {
-												"name": "DEST"
+												"name": "DEST",
+												"type": "String"
 											},
 											"sink": {
 												"name": "DEST"
@@ -181,7 +185,8 @@
 										},
 										{
 											"source": {
-												"name": "CRS_DEP_TIME"
+												"name": "CRS_DEP_TIME",
+												"type": "Int16"
 											},
 											"sink": {
 												"name": "CRS_DEP_TIME"
@@ -189,7 +194,8 @@
 										},
 										{
 											"source": {
-												"name": "DEP_TIME"
+												"name": "DEP_TIME",
+												"type": "Int16"
 											},
 											"sink": {
 												"name": "DEP_TIME"
@@ -197,7 +203,8 @@
 										},
 										{
 											"source": {
-												"name": "DEP_DELAY"
+												"name": "DEP_DELAY",
+												"type": "Double"
 											},
 											"sink": {
 												"name": "DEP_DELAY"
@@ -205,31 +212,27 @@
 										},
 										{
 											"source": {
-												"name": "DEP_DEL15"
+												"name": "DEP_DEL15",
+												"type": "Double"
 											},
 											"sink": {
 												"name": "DEP_DEL15"
 											}
 										},
 										{
-											"source": {
-												"name": "TAXI_OUT"
-											},
 											"sink": {
 												"name": "TAXI_OUT"
 											}
 										},
 										{
-											"source": {
-												"name": "TAXI_IN"
-											},
 											"sink": {
 												"name": "TAXI_IN"
 											}
 										},
 										{
 											"source": {
-												"name": "CRS_ARR_TIME"
+												"name": "CRS_ARR_TIME",
+												"type": "Int16"
 											},
 											"sink": {
 												"name": "CRS_ARR_TIME"
@@ -237,7 +240,8 @@
 										},
 										{
 											"source": {
-												"name": "ARR_TIME"
+												"name": "ARR_TIME",
+												"type": "Int16"
 											},
 											"sink": {
 												"name": "ARR_TIME"
@@ -245,7 +249,8 @@
 										},
 										{
 											"source": {
-												"name": "ARR_DELAY"
+												"name": "ARR_DELAY",
+												"type": "Double"
 											},
 											"sink": {
 												"name": "ARR_DELAY"
@@ -253,7 +258,8 @@
 										},
 										{
 											"source": {
-												"name": "ARR_DEL15"
+												"name": "ARR_DEL15",
+												"type": "Double"
 											},
 											"sink": {
 												"name": "ARR_DEL15"
@@ -261,7 +267,8 @@
 										},
 										{
 											"source": {
-												"name": "CANCELLED"
+												"name": "CANCELLED",
+												"type": "Double"
 											},
 											"sink": {
 												"name": "CANCELLED"
@@ -269,7 +276,8 @@
 										},
 										{
 											"source": {
-												"name": "CANCELLATION_CODE"
+												"name": "CANCELLATION_CODE",
+												"type": "String"
 											},
 											"sink": {
 												"name": "CANCELLATION_CODE"
@@ -277,39 +285,32 @@
 										},
 										{
 											"source": {
-												"name": "DIVERTED"
+												"name": "DIVERTED",
+												"type": "Double"
 											},
 											"sink": {
 												"name": "DIVERTED"
 											}
 										},
 										{
-											"source": {
-												"name": "CRS_ELAPSED_TIME"
-											},
 											"sink": {
 												"name": "CRS_ELAPSED_TIME"
 											}
 										},
 										{
-											"source": {
-												"name": "ACTUAL_ELAPSED_TIME"
-											},
 											"sink": {
 												"name": "ACTUAL_ELAPSED_TIME"
 											}
 										},
 										{
-											"source": {
-												"name": "AIR_TIME"
-											},
 											"sink": {
 												"name": "AIR_TIME"
 											}
 										},
 										{
 											"source": {
-												"name": "DISTANCE"
+												"name": "DISTANCE",
+												"type": "Double"
 											},
 											"sink": {
 												"name": "DISTANCE"
@@ -317,7 +318,8 @@
 										},
 										{
 											"source": {
-												"name": "CARRIER_DELAY"
+												"name": "CARRIER_DELAY",
+												"type": "Double"
 											},
 											"sink": {
 												"name": "CARRIER_DELAY"
@@ -325,7 +327,8 @@
 										},
 										{
 											"source": {
-												"name": "WEATHER_DELAY"
+												"name": "WEATHER_DELAY",
+												"type": "Double"
 											},
 											"sink": {
 												"name": "WEATHER_DELAY"
@@ -333,7 +336,8 @@
 										},
 										{
 											"source": {
-												"name": "NAS_DELAY"
+												"name": "NAS_DELAY",
+												"type": "Double"
 											},
 											"sink": {
 												"name": "NAS_DELAY"
@@ -341,7 +345,8 @@
 										},
 										{
 											"source": {
-												"name": "SECURITY_DELAY"
+												"name": "SECURITY_DELAY",
+												"type": "Double"
 											},
 											"sink": {
 												"name": "SECURITY_DELAY"
@@ -349,7 +354,8 @@
 										},
 										{
 											"source": {
-												"name": "LATE_AIRCRAFT_DELAY"
+												"name": "LATE_AIRCRAFT_DELAY",
+												"type": "Double"
 											},
 											"sink": {
 												"name": "LATE_AIRCRAFT_DELAY"
