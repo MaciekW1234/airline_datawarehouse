@@ -9,13 +9,13 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@array('Jan2025','Feb2025','Mar2025','Apr2025','May2025','Jun2025','Jul2025','Aug2025','Sep2025','Oct2025','Nov2025','Dec2025')",
+						"value": "@json('[\"Jan2025\",\"Feb2025\",\"Mar2025\",\"Apr2025\",\"May2025\",\"Jun2025\",\"Jul2025\",\"Aug2025\",\"Sep2025\",\"Oct2025\",\"Nov2025\",\"Dec2025\"]')",
 						"type": "Expression"
 					},
 					"isSequential": true,
 					"activities": [
 						{
-							"name": "Data flow1",
+							"name": "DF_Bronze_to_Silver_BTS",
 							"type": "ExecuteDataFlow",
 							"dependsOn": [],
 							"policy": {
@@ -30,6 +30,9 @@
 								"dataflow": {
 									"referenceName": "DF_Bronze_to_Silver_BTS",
 									"type": "DataFlowReference",
+									"parameters": {
+										"monthFolder": "'Apr2025'"
+									},
 									"datasetParameters": {
 										"BronzeBTS": {
 											"monthFolder": "@item()"
